@@ -1,0 +1,1 @@
+ALTER TABLE "access_accounts" ADD COLUMN "quick_login" bigint DEFAULT 0 NOT NULL;

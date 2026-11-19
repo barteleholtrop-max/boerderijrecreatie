@@ -1,0 +1,30 @@
+{
+  "id": "zelfkassa",
+  "name": "Boer Bart — Zelfkassa",
+  "short_name": "Zelfkassa",
+  "lang": "nl",
+  "start_url": "zelfkassa.html",
+  "scope": "zelfkassa.html",
+  "display": "fullscreen",
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "orientation": "any",
+  "background_color": "#f7f5ec",
+  "theme_color": "#36563b",
+  "icons": [
+    {
+      "src": "beeld/zelfkassa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "beeld/zelfkassa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+-- Aanbieden voor overname (besluit eigenaar 5 november 2026): een lid geeft een dienst niet terug maar biedt hem aan; tot een collega hem overneemt, blijft hij van wie hem had. Bestaande tabel, beveiliging per rij staat al aan.
+ALTER TABLE "pot_shifts" ADD COLUMN "offered" text DEFAULT '' NOT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE "pot_needs" ADD COLUMN "note" text DEFAULT '' NOT NULL;

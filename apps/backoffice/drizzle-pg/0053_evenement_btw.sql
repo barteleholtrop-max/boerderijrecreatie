@@ -1,0 +1,1 @@
+ALTER TABLE "member_event_settlements" ADD COLUMN "vat_cents" bigint DEFAULT 0 NOT NULL;

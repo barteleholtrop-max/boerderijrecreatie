@@ -1,0 +1,11 @@
+# Alleen wat de backoffice nodig heeft voor de build (zie Dockerfile).
+.git
+**/node_modules
+**/.next
+**/dist
+**/dist-ssr
+var
+apps/*/var
+originals
+apps/backoffice/.env*
+**/.env.local

@@ -1,0 +1,1 @@
+ALTER TABLE "coop_participants" ADD COLUMN "company" text DEFAULT '' NOT NULL;

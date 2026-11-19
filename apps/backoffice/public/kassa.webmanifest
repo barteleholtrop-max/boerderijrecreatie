@@ -1,0 +1,25 @@
+{
+  "id": "/kassa",
+  "start_url": "/kassa",
+  "scope": "/kassa",
+  "name": "Boer Bart · Kassa",
+  "short_name": "Kassa",
+  "lang": "nl",
+  "display": "standalone",
+  "background_color": "#f7f5ec",
+  "theme_color": "#b5552b",
+  "icons": [
+    {
+      "src": "/icons/kassa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/kassa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "live": true,
+  "uitleg": "Aan sinds 16 november 2026: boerbart.nl en www.boerbart.nl wijzen naar deze site (docs/OVERSTAP-WIX.md, stap 4) en het slotje is actief. Canonical, sitemap en schema gebruiken https://www.boerbart.nl en Google mag de pagina's vinden. Uit (false) = weer de proefstand op het Cloud Run-adres."
+}

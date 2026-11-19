@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f5ec">
+<title>Bestellen — Boer Bart</title>
+<meta name="description" content="Bestel eten en drinken op het erf van Boer Bart, gewoon met je eigen telefoon.">
+<!-- Het aanbod komt live uit de centrale backoffice (GET /api/public/products).
+     Leeg = op deze computer poort 3001; online via het eigen adres van de website, dat nginx op Cloud Run doorstuurt naar de backoffice
+     (deploy/website/nginx.conf.template, docs/CLOUD-RUN.md). Alleen invullen als de website ooit zonder die doorsturing draait. -->
+<meta name="boerbart-backoffice" content="">
+<link rel="icon" href="beeld/boerbart-logo.webp" type="image/webp">
+<link rel="apple-touch-icon" href="beeld/bestellen-192.png">
+<!-- Op de iPhone kan de gast de bestelpagina op het beginscherm zetten; dan werken meldingen ("Je bestelling staat klaar"). -->
+<link rel="manifest" href="bestellen-app.json">
+<!-- Zelfkassa in de winkel (wens eigenaar 9 november 2026): op de tablet geïnstalleerd opent de app altijd de zelfkassa, op volledig
+     scherm (zelfkassa-app.json), nooit de bestelpagina met eten en drinken. Sinds 12 november 2026 heeft de zelfkassa een eigen
+     pagina (zelfkassa.html); ?zelfservice=1 hier blijft werken voor een tablet die al zo staat ingesteld. -->
+<script>if (new URLSearchParams(location.search).has('zelfservice')) document.querySelector('link[rel=manifest]').href = 'zelfkassa-app.json?v=3';</script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Boer Bart">
+<link rel="stylesheet" href="bestellen.css">
+<!-- Uitstraling (wens eigenaar 9 november 2026): één bestelapp, meerdere uitstralingen. De eigenaar kiest bij Website & uitstraling;
+     bestellen.js leest de keuze uit /api/public/order-options. Hier alleen de laatst bekende keuze, zodat de pagina niet eerst in
+     een andere uitstraling verschijnt. ?uitstraling=d, =e of =klassiek bekijkt er één zonder iets te wijzigen. Niet in de zelfkassa en
+     niet op een website met een eigen thema (html.thema-site). -->
+<script>(function(){var d=document.documentElement,q=new URLSearchParams(location.search),u=q.get('uitstraling');
+if(q.has('zelfservice')||d.classList.contains('thema-site'))return;
+if(!/^(klassiek|d|e)$/.test(u||'')){try{u=localStorage.getItem('bb-uitstraling')}catch(e){u=null}}
+if(u==='d'||u==='e'){d.dataset.uitstraling=u;document.write('<link rel="stylesheet" href="bestellen-'+u+'.css" id="uitstraling-css">')}})();</script>
+<script src="bestellen.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#kaart">Direct naar de kaart</a>
+<header class="top">
+  <a class="brand" href="/" aria-label="Boer Bart — naar de website">
+    <img src="beeld/boerbart-logo.webp" alt="" width="52" height="52">
+    <span><b>Boer Bart</b><small>Bestellen op het erf</small></span>
+  </a>
+  <button class="basket-button" type="button" id="open-basket" aria-label="Je bestelling bekijken" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+    <span class="badge" id="basket-badge">0</span>
+  </button>
+</header>
+
+<p class="notice-strip" role="note">Proefversie · het aanbod is echt, betalen is nog een test (er gaat geen echt geld om)</p>
+
+<main id="kaart" tabindex="-1">
+  <section class="intro">
+    <p class="micro">Fijn dat je er bent</p>
+    <h1>Wêr hast<br><em>sin oan?</em></h1>
+    <p>Kies iets lekkers. Wij zorgen voor de rest.</p>
+  </section>
+
+  <div class="group-banner" id="group-banner" role="status" hidden></div>
+  <div class="routes" id="routes" role="tablist" aria-label="Wat wil je bestellen?" hidden></div>
+  <p class="route-hint" id="route-hint"></p>
+  <nav class="sections" id="sections" aria-label="Onderdelen van de kaart" hidden></nav>
+
+  <div id="menu" aria-live="polite" aria-busy="true">
+    <div class="skeleton" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="visually-hidden">Het aanbod wordt geladen…</p>
+  </div>
+
+  <aside class="yte-note">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-3 4.5-3 7.5h3V21"/></svg>
+    <p><b>Zit je bij Ite?</b> Dan bestel je gewoon aan tafel. Onze bediening helpt je graag, ook bij allergieën of dieetwensen.</p>
+  </aside>
+
+  <footer class="foot">
+    <p>Boer Bart · Rotstergaast</p>
+    <a href="/">← Terug naar de website</a>
+  </footer>
+</main>
+
+<div class="basket-bar" id="basket-bar" hidden>
+  <button type="button" id="basket-bar-button"><span id="basket-bar-label">Bekijk je bestelling</span><b id="basket-bar-total"></b></button>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet-head">
+    <span class="sheet-grip" aria-hidden="true"></span>
+    <h2 id="sheet-title"></h2>
+    <button type="button" class="close" id="sheet-close" aria-label="Sluiten">×</button>
+  </div>
+  <div class="sheet-body" id="sheet-body"></div>
+  <div class="sheet-foot" id="sheet-foot"></div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

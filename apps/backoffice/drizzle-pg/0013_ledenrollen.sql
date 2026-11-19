@@ -1,0 +1,2 @@
+-- Rollen per lid per pot (besluit eigenaar 5 november 2026): alleen de aangevinkte rollen kan een lid zelf claimen. Bestaande tabel, beveiliging per rij staat al aan.
+ALTER TABLE "coop_participants" ADD COLUMN "pot_roles" text DEFAULT '{}' NOT NULL;

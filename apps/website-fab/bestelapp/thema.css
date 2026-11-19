@@ -1,0 +1,19 @@
+/* Bestelapp in de vormgeving van de website (StudioFab-look): Young Serif en Figtree, papier, bosgroen en terra.
+   Alleen kleuren, lettertypen en vormen; de werking van de bestelapp (apps/website/bestellen.*) blijft gelijk. */
+@font-face{font-family:"Young Serif";src:url(fonts/young-serif.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Figtree Variable";src:url(fonts/figtree.woff2) format("woff2");font-weight:300 900;font-display:swap}
+html.thema-site{
+  --bg:#f5f0e6;--surface:#eae1d2;--card:#fffdf8;--ink:#1f2a23;--muted:#5d6559;--accent:#243a2d;--accent-soft:#dfe6dc;
+  --on:#fff;--line:#d9cfbd;--warm:#a7593d;--danger:#8e4a31;
+  --serif:"Young Serif",Georgia,"Times New Roman",serif;--sans:"Figtree Variable","Figtree","Helvetica Neue",Arial,sans-serif;
+  --radius:16px;--shadow:0 14px 34px #1f2a2314;
+}
+html.thema-site body{letter-spacing:.005em}
+html.thema-site h1,html.thema-site h2,html.thema-site h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+/* Kop: het woordmerk van de website in plaats van het ronde logo. */
+html.thema-site .top{background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+html.thema-site .brand img{display:none}
+html.thema-site .brand b{font-family:var(--serif);font-weight:400;font-size:24px;color:var(--accent);letter-spacing:-.01em}
+html.thema-site .brand small{text-transform:uppercase;letter-spacing:.14em;font-size:10px;color:var(--warm)}
+/* Knoppen rond, zoals op de website. */
+html.thema-site button.primary,html.thema-site .primary,html.thema-site .btn{border-radius:999px}

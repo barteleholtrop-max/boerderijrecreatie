@@ -1,0 +1,1 @@
+ALTER TABLE "coop_participants" ADD COLUMN "volunteer_kind" text DEFAULT 'vrijwilliger' NOT NULL;

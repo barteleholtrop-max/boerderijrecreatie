@@ -1,0 +1,22 @@
+{
+  "name": "Boer Bart · Backoffice",
+  "short_name": "Backoffice",
+  "lang": "nl",
+  "display": "standalone",
+  "background_color": "#f7f5ec",
+  "theme_color": "#2f4858",
+  "icons": [
+    {
+      "src": "/icons/backoffice-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/backoffice-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

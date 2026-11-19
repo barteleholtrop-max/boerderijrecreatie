@@ -1,0 +1,2 @@
+ALTER TABLE "content_items" ADD COLUMN "source" text DEFAULT '' NOT NULL;--> statement-breakpoint
+CREATE UNIQUE INDEX "content_items_source_unique" ON "content_items" USING btree ("source") WHERE source <> '';

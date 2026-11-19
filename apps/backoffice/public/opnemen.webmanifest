@@ -1,0 +1,23 @@
+{
+  "scope": "/opnemen",
+  "name": "Boer Bart · Opnemen",
+  "short_name": "Opnemen",
+  "lang": "nl",
+  "display": "standalone",
+  "background_color": "#f7f5ec",
+  "theme_color": "#6b3a5b",
+  "icons": [
+    {
+      "src": "/icons/opnemen-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/opnemen-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

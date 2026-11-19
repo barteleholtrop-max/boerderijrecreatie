@@ -1,0 +1,510 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793811204129,
+      "tag": "0000_basis",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793811214543,
+      "tag": "0001_beginwaarden",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793821508305,
+      "tag": "0002_afscherming",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793821976880,
+      "tag": "0003_bloei_proef",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793825999371,
+      "tag": "0004_toegang",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793865995301,
+      "tag": "0005_gezamenlijke_rekening",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793870155039,
+      "tag": "0006_ledenkaart",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793874395279,
+      "tag": "0007_pot_afspraken",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1793878349671,
+      "tag": "0008_rekening_mail",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1793878486663,
+      "tag": "0009_meebetalen",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1793879132712,
+      "tag": "0010_dividend_telefoons",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1793881430130,
+      "tag": "0011_restaurantpot",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1793883625450,
+      "tag": "0012_personeelsplanning",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1793893817700,
+      "tag": "0013_ledenrollen",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1793896748056,
+      "tag": "0014_printers",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1793900988990,
+      "tag": "0015_dienst_overnemen",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1793901234529,
+      "tag": "0016_halve_dienst",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1793906515929,
+      "tag": "0017_cloudy_mister_sinister",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1793911660184,
+      "tag": "0018_oogstabonnementen",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1793912110445,
+      "tag": "0019_oogst_incasso_intenties",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1793916260272,
+      "tag": "0020_onderdeelpotten",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1793946124708,
+      "tag": "0021_lid_als_bedrijf",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1793949323615,
+      "tag": "0022_bb_tegoed",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1793951640069,
+      "tag": "0023_bankverdeling",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1793953150298,
+      "tag": "0024_verdeling_bevestigen",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "7",
+      "when": 1793955091364,
+      "tag": "0025_bb_maandagvraag",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "7",
+      "when": 1793956974625,
+      "tag": "0026_overleg",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "7",
+      "when": 1793958441926,
+      "tag": "0027_smiling_sumo",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "7",
+      "when": 1793961752043,
+      "tag": "0028_dienst_omschrijving",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "7",
+      "when": 1793963405234,
+      "tag": "0029_voorspelling",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "7",
+      "when": 1793966537781,
+      "tag": "0030_lidmaatschapsafspraken",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "7",
+      "when": 1793970421890,
+      "tag": "0031_functiecontracten",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "7",
+      "when": 1793973981695,
+      "tag": "0032_rollen_per_pot",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "7",
+      "when": 1793976300904,
+      "tag": "0033_inloggen_tweestaps",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "7",
+      "when": 1793977668697,
+      "tag": "0034_rolcontract_concept",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "7",
+      "when": 1793980749901,
+      "tag": "0035_coop_documenten",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "7",
+      "when": 1793983611744,
+      "tag": "0036_onderdelen_en_vastlegging",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "7",
+      "when": 1793991807740,
+      "tag": "0037_vergelijkingsjaren",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "7",
+      "when": 1794050595704,
+      "tag": "0038_agenda_koppelen",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "7",
+      "when": 1794119212580,
+      "tag": "0039_vrijwilliger",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "7",
+      "when": 1794136013079,
+      "tag": "0040_berichten",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "7",
+      "when": 1794153470627,
+      "tag": "0041_rente_uitbetaling",
+      "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "7",
+      "when": 1794157237171,
+      "tag": "0042_magazijn",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "7",
+      "when": 1794159790670,
+      "tag": "0043_ledenevenementen",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "7",
+      "when": 1794201292218,
+      "tag": "0044_demolink",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "7",
+      "when": 1794212484735,
+      "tag": "0045_proefstand",
+      "breakpoints": true
+    },
+    {
+      "idx": 46,
+      "version": "7",
+      "when": 1794213879730,
+      "tag": "0046_gastcontact",
+      "breakpoints": true
+    },
+    {
+      "idx": 47,
+      "version": "7",
+      "when": 1794217744775,
+      "tag": "0047_waardering",
+      "breakpoints": true
+    },
+    {
+      "idx": 48,
+      "version": "7",
+      "when": 1794217745733,
+      "tag": "0048_waardering_beginwaarden",
+      "breakpoints": true
+    },
+    {
+      "idx": 49,
+      "version": "7",
+      "when": 1794223977301,
+      "tag": "0049_evenement_afrekening",
+      "breakpoints": true
+    },
+    {
+      "idx": 50,
+      "version": "7",
+      "when": 1794224507251,
+      "tag": "0050_bonvraag",
+      "breakpoints": true
+    },
+    {
+      "idx": 51,
+      "version": "7",
+      "when": 1794228183723,
+      "tag": "0051_inkoop_evenementen",
+      "breakpoints": true
+    },
+    {
+      "idx": 52,
+      "version": "7",
+      "when": 1794230276031,
+      "tag": "0052_bb_vrijwilliger",
+      "breakpoints": true
+    },
+    {
+      "idx": 53,
+      "version": "7",
+      "when": 1794232944080,
+      "tag": "0053_evenement_btw",
+      "breakpoints": true
+    },
+    {
+      "idx": 54,
+      "version": "7",
+      "when": 1794234693058,
+      "tag": "0054_meta_berichten",
+      "breakpoints": true
+    },
+    {
+      "idx": 55,
+      "version": "7",
+      "when": 1794238649707,
+      "tag": "0055_uitstraling",
+      "breakpoints": true
+    },
+    {
+      "idx": 56,
+      "version": "7",
+      "when": 1794253297865,
+      "tag": "0056_boodschappen",
+      "breakpoints": true
+    },
+    {
+      "idx": 57,
+      "version": "7",
+      "when": 1794286327509,
+      "tag": "0057_gesprek_lid",
+      "breakpoints": true
+    },
+    {
+      "idx": 58,
+      "version": "7",
+      "when": 1794300911697,
+      "tag": "0058_werkplektablets",
+      "breakpoints": true
+    },
+    {
+      "idx": 59,
+      "version": "7",
+      "when": 1794309138680,
+      "tag": "0059_bon_bij_uitgave",
+      "breakpoints": true
+    },
+    {
+      "idx": 60,
+      "version": "7",
+      "when": 1794406938994,
+      "tag": "0060_eigen_rekening",
+      "breakpoints": true
+    },
+    {
+      "idx": 61,
+      "version": "7",
+      "when": 1794462098228,
+      "tag": "0061_telefoon_ingelogd",
+      "breakpoints": true
+    },
+    {
+      "idx": 62,
+      "version": "7",
+      "when": 1794510558725,
+      "tag": "0062_bloei_leden",
+      "breakpoints": true
+    },
+    {
+      "idx": 63,
+      "version": "7",
+      "when": 1794549291967,
+      "tag": "0063_access_quick_login",
+      "breakpoints": true
+    },
+    {
+      "idx": 64,
+      "version": "7",
+      "when": 1794565567307,
+      "tag": "0064_inhoud",
+      "breakpoints": true
+    },
+    {
+      "idx": 65,
+      "version": "7",
+      "when": 1794571476802,
+      "tag": "0065_volunteer_kind",
+      "breakpoints": true
+    },
+    {
+      "idx": 66,
+      "version": "7",
+      "when": 1794573347483,
+      "tag": "0066_oude_blogs",
+      "breakpoints": true
+    },
+    {
+      "idx": 67,
+      "version": "7",
+      "when": 1794672858109,
+      "tag": "0067_werkplek_open",
+      "breakpoints": true
+    },
+    {
+      "idx": 68,
+      "version": "7",
+      "when": 1794743285764,
+      "tag": "0068_privacy",
+      "breakpoints": true
+    },
+    {
+      "idx": 69,
+      "version": "7",
+      "when": 1794764199597,
+      "tag": "0069_website_onderdelen",
+      "breakpoints": true
+    },
+    {
+      "idx": 70,
+      "version": "7",
+      "when": 1794828778996,
+      "tag": "0070_dagrestaurant_overdag",
+      "breakpoints": true
+    },
+    {
+      "idx": 71,
+      "version": "7",
+      "when": 1794853307730,
+      "tag": "0071_documenten_een_verzameling",
+      "breakpoints": true
+    }
+  ]
+}

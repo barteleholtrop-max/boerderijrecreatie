@@ -1,0 +1,23 @@
+name: risicoklasse
+
+# Informatief: toont per pull request of de wijzigingen laag risico zijn of
+# expliciete eigenaargoedkeuring vragen (docs/GOEDKEURINGSBELEID.md).
+# Blokkeert niets en vervangt geen bestaande controle of review.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  classificeren:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Risicoklasse bepalen
+        run: node tools/website-dev/risk-cli.mjs "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" | tee -a "$GITHUB_STEP_SUMMARY"

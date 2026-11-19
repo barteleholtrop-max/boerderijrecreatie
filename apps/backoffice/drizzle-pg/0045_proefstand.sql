@@ -1,0 +1,1 @@
+ALTER TABLE "coop_portal_links" ADD COLUMN "proef" bigint DEFAULT 0 NOT NULL;

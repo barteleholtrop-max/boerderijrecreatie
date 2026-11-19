@@ -1,0 +1,157 @@
+# Proefwebsites op Cloud Run (besluit eigenaar 7 november 2026). Zie docs/CLOUD-RUN.md.
+# Gewone bestanden uit /usr/share/nginx/html; de openbare deur van de backoffice (/api/public/…) en de gedeelde
+# bestanden van Mijn Bloei gaan achter de schermen naar BACKOFFICE_ORIGIN. De rest van de backoffice blijft achter de login.
+# Proef-adressen: niet in Google zoeken (X-Robots-Tag); boerbart.nl en www.boerbart.nl wel, zie hieronder.
+# Overstap van Wix (opdracht eigenaar 15 november 2026: „de oude site op pauze”), docs/OVERSTAP-WIX.md:
+# - op boerbart.nl en www.boerbart.nl mag Google de site vinden; elk ander adres (Cloud Run, proef) blijft noindex;
+# - boerbart.nl zonder www gaat naar www.boerbart.nl (één vast adres voor zoekmachines);
+# - oude Wix-adressen sturen blijvend (301) door naar de nieuwe pagina, zodat links en Google-resultaten blijven werken.
+map $host $robots_tag {
+  ~*^(www\.)?boerbart\.nl$ "all";
+  ~*^cooperatie\.boerbart\.nl$ "all";
+  default "noindex, nofollow";
+}
+# Bloei op cooperatie.boerbart.nl (wens eigenaar 16 november 2026: „alles wat met Bloei te maken heeft op
+# cooperatie.boerbart.nl”; later de hele Bloei-foundation-site, coöperatie en obligaties samen). Zie docs/SITES.md.
+# Op dat adres alleen de Bloei-pagina's en wat ze nodig hebben; elke andere pagina gaat naar www.boerbart.nl.
+map $uri $niet_bloei {
+  default 1;
+  / 0;
+  ~^/(mijn-bloei|bloeimarkt)(/|$) 0;
+  ~^/(assets|images|og|fonts)/ 0;
+  ~^/api/public/ 0;
+  ~^/(brand\.css|bloei-proef\.css|bloei-proef\.js|bloei-xlsx\.js|favicon\.png|apple-touch-icon\.png|logo-[a-z-]+\.png|404\.html|healthz)$ 0;
+}
+map "$host|$niet_bloei" $naar_hoofdsite {
+  default 0;
+  ~*^cooperatie\.boerbart\.nl\|1$ 1;
+}
+# Omgekeerd: op de hoofdsite gaan Mijn Bloei en de Bloeimarkt naar het coöperatie-adres.
+map "$host|$uri" $naar_cooperatie {
+  default 0;
+  ~*^(www\.)?boerbart\.nl\|/(mijn-bloei|bloeimarkt)(/|$) 1;
+}
+# Beveiligingskoppen (verhuisd uit hosting/firebase.json, opruimen 15 november 2026, docs/SITES.md): op de bestel- en
+# oogstpagina reist het adres (met ?rekening=, ?deel=, ?bestelling=) niet mee als Referer; HTML wordt niet bewaard.
+map $uri $referrer_beleid {
+  ~^/(bestellen\.html|bestellen/|abonnementen\.html) no-referrer;
+  default strict-origin-when-cross-origin;
+}
+map $uri $cache_beleid {
+  /abonnementen.html no-store;
+  ~\.html$ no-cache;
+  ~/$ no-cache;
+  default "";
+}
+map $uri $oud_wix {
+  default "";
+  /blog /nieuws/;
+  ~^/blog/categories/ /nieuws/;
+  # Drie oude blogs met een letter met teken in het adres: het nieuwe adres is zonder dat teken.
+  /post/van-boerderij-naar-coöperatie /nieuws/#van-boerderij-naar-cooperatie;
+  /post/van-een-boerderij-naar-een-coöperatie /nieuws/#van-een-boerderij-naar-een-cooperatie;
+  /post/een-nieuw-hoofdstuk-wolkom-thús /nieuws/#een-nieuw-hoofdstuk-wolkom-thus;
+  ~^/post/([^/]+)$ /nieuws/#$1;
+  /overons /over-ons/;
+  /about-5 /over-ons/;
+  /boerderij /over-ons/;
+  /fotos /over-ons/;
+  /reviews /over-ons/;
+  /jerseys /nieuws/#jerseys;
+  /gras /nieuws/#gras;
+  /kippen /nieuws/#kippen;
+  /kippenboer /nieuws/#kippenboer;
+  /mobielmelken /nieuws/#mobiel-melken;
+  /speelboerderij /speelboerderij/;
+  /boerenpaad /speelboerderij/;
+  /infographic /speelboerderij/;
+  ~^/rondleiding(/|$) /speelboerderij/;
+  /winkel /boerderijwinkel/;
+  /shop /boerderijwinkel/;
+  /hofladen /boerderijwinkel/;
+  /winkeltijden-de /boerderijwinkel/;
+  /etenenbestellen /bestellen/;
+  /tracker-page /bestellen/;
+  /payment-request-page /bestellen/;
+  /menu /yte/;
+  /keuken /yte/;
+  /bijdeboeraantafel /yte/;
+  /experiences /agenda/;
+  /experience-details /agenda/;
+  /event-list /agenda/;
+  ~^/event-details/ /agenda/;
+  ~^/service-page/ /agenda/;
+  /schoolreisje /groepen/;
+  /kinderfeest /groepen/;
+  /feest-lead-pagina /groepen/;
+  /strategiesessie /groepen/;
+  # De coöperatie staat niet meer op de site (besluit eigenaar 15 november 2026); ook het adres /cooperatie/ zelf.
+  /boerbartcooperatie /over-ons/;
+  /obligatie /over-ons/;
+  /bepaalzelfwaarde /over-ons/;
+  /cooperatie /over-ons/;
+  /cooperatie/ /over-ons/;
+  /contact /contact/;
+  /winkeltijden /contact/;
+  /reservations /contact/;
+  /book-online /contact/;
+  /jaarkaart /contact/;
+  /gift-card /contact/;
+  /vragen /vragen/;
+  /privacybeleid /privacy/;
+}
+server {
+  listen ${PORT};
+  server_name _;
+  root /usr/share/nginx/html;
+  absolute_redirect off;
+  server_tokens off;
+  add_header X-Robots-Tag $robots_tag always;
+  add_header X-Content-Type-Options nosniff always;
+  # Geen frames van andere sites (klikkapen), camera alleen voor de eigen pagina (QR-code scannen bij bestellen).
+  add_header X-Frame-Options DENY always;
+  add_header Content-Security-Policy "frame-ancestors 'none'; base-uri 'self'; object-src 'none'" always;
+  add_header Permissions-Policy "camera=(self), microphone=(), geolocation=(), payment=()" always;
+  add_header Referrer-Policy $referrer_beleid always;
+  add_header Cache-Control $cache_beleid always;
+
+  location = /healthz { access_log off; return 200 "ok\n"; }
+
+  # cooperatie.boerbart.nl: alleen Bloei; andere pagina's gaan naar de hoofdsite. Het hoofdadres: zie location = / hieronder.
+  if ($naar_hoofdsite) { return 301 https://www.boerbart.nl$request_uri; }
+  if ($naar_cooperatie) { return 301 https://cooperatie.boerbart.nl$request_uri; }
+
+  # boerbart.nl zonder www → www.boerbart.nl, met hetzelfde pad.
+  if ($host ~* "^boerbart\.nl$") { return 301 https://www.boerbart.nl$request_uri; }
+  # Oude Wix-adressen, alleen op de nieuwe site (die heeft /nieuws/); de huidige eigen site blijft zoals hij is.
+  set $doorsturen $oud_wix;
+  if (!-f $document_root/nieuws/index.html) { set $doorsturen ""; }
+  if ($doorsturen) { return 301 $doorsturen; }
+
+  location ~ ^/(api/public/|brand\.css$|bloei-proef\.css$|bloei-proef\.js$|bloei-xlsx\.js$) {
+    proxy_pass ${BACKOFFICE_ORIGIN};
+    proxy_ssl_server_name on;
+    proxy_set_header Host ${BACKOFFICE_HOST};
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header Cookie "";
+    proxy_hide_header Set-Cookie;
+    proxy_read_timeout 60s;
+  }
+
+  # Eigen adressen voor losse apps (opdracht eigenaar 13 november 2026, docs/VOORDEUR.md): zelfscankassa.boerbart.nl opent
+  # meteen de zelfscan, zelfkassa.boerbart.nl de tabletkassa. Andere adressen tonen de gewone voorpagina.
+  location = / {
+    if ($host ~* "^zelfscan(kassa)?\.") { return 302 /zelfscan.html; }
+    if ($host ~* "^zelfkassa\.") { return 302 /zelfkassa.html; }
+    # cooperatie.boerbart.nl opent voorlopig de Bloeimarkt (openbaar: coöperatie en obligaties). Tijdelijk (302): later komt
+    # hier de startpagina van Bloei (de Bloei-foundation-site, wens eigenaar 16 november 2026).
+    if ($host ~* "^cooperatie\.") { return 302 /bloeimarkt/; }
+    try_files /index.html =404;
+  }
+
+  location / {
+    try_files $uri $uri.html $uri/ =404;
+  }
+  error_page 404 /404.html;
+}

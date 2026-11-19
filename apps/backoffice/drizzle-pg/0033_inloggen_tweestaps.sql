@@ -1,0 +1,1 @@
+ALTER TABLE "access_accounts" ADD COLUMN "auth_id" text;

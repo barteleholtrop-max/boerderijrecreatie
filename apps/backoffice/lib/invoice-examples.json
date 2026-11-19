@@ -1,0 +1,830 @@
+[
+  {
+    "invoice": {
+      "id": "6bab6f3d-3a8f-40c4-8a25-5c24cb99ef13",
+      "supplier": "Op Kop Koffiebranders",
+      "number": "F00216",
+      "date": "2024-08-09",
+      "source": "",
+      "lines": [
+        {
+          "id": "line-1",
+          "article": "",
+          "description": "Jouster Melange B2B (order 5 augustus)",
+          "quantity": 16,
+          "unit": "st",
+          "netCents": 31600,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        }
+      ],
+      "reviewed": false
+    },
+    "warnings": [
+      "Gewicht per koffie-eenheid ontbreekt: bevestig de verpakking voordat je naar kg omrekent.",
+      "Controleer alle aantallen, eenheden, kortingen en bedragen tegen de factuur. De herkenning is een voorstel en verwerkt geen voorraad."
+    ]
+  },
+  {
+    "invoice": {
+      "id": "a73fff77-013c-4a6f-98d0-1d98db9a7511",
+      "supplier": "Sligro",
+      "number": "10003197064",
+      "date": "2024-07-23",
+      "source": "",
+      "lines": [
+        {
+          "id": "line-1",
+          "article": "732623",
+          "description": "LU BASTOGNE ORIGINAL",
+          "quantity": 1.56,
+          "unit": "kg",
+          "netCents": 1260,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-2",
+          "article": "399878",
+          "description": "MONIN SIROOP NOISETTE",
+          "quantity": 1,
+          "unit": "l",
+          "netCents": 1292,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-3",
+          "article": "146825",
+          "description": "D'AMICO KIKKERERWTEN BIO",
+          "quantity": 2.5,
+          "unit": "kg",
+          "netCents": 642,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-4",
+          "article": "163045",
+          "description": "SLIGRO SPICE MARKET SPECULAAS",
+          "quantity": 0.42,
+          "unit": "kg",
+          "netCents": 1159,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-5",
+          "article": "373291",
+          "description": "HALM HAVERMOUT BIO",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 369,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-6",
+          "article": "909848",
+          "description": "VAN GILSE SCHENKSTROOP",
+          "quantity": 3.6,
+          "unit": "kg",
+          "netCents": 1170,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-7",
+          "article": "133890",
+          "description": "LEVO KETCHUP 2X5LITER",
+          "quantity": 10,
+          "unit": "l",
+          "netCents": 2891,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-8",
+          "article": "193455",
+          "description": "LEVO MAYONAISE 80% 2 ZAKKEN",
+          "quantity": 10,
+          "unit": "l",
+          "netCents": 2664,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-9",
+          "article": "378796",
+          "description": "LEVO MAYONAISE 80%",
+          "quantity": 10,
+          "unit": "l",
+          "netCents": 2664,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-10",
+          "article": "597609",
+          "description": "SNIJ SLA SLAMIX BASIS",
+          "quantity": 2,
+          "unit": "kg",
+          "netCents": 1328,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-11",
+          "article": "197275",
+          "description": "GWOON PATENT TARWEBLOEM",
+          "quantity": 10,
+          "unit": "kg",
+          "netCents": 1039,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-12",
+          "article": "86222",
+          "description": "STEENSMA AMANDELMEEL",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 1846,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-13",
+          "article": "432210",
+          "description": "KOMO HUISVUILZAKKEN 50L 60X80 LDPE 50MY",
+          "quantity": 300,
+          "unit": "st",
+          "netCents": 2681,
+          "ingredientId": "",
+          "kind": "other",
+          "received": false
+        },
+        {
+          "id": "line-14",
+          "article": "118105",
+          "description": "TAKE DIS BOOT HOUT KLEIN 64X42MM",
+          "quantity": 100,
+          "unit": "st",
+          "netCents": 599,
+          "ingredientId": "",
+          "kind": "other",
+          "received": false
+        },
+        {
+          "id": "line-15",
+          "article": "194056",
+          "description": "T.D. SERVET 2-LGS 33X33CM WIT 125ST",
+          "quantity": 125,
+          "unit": "st",
+          "netCents": 231,
+          "ingredientId": "",
+          "kind": "other",
+          "received": false
+        },
+        {
+          "id": "line-16",
+          "article": "44613",
+          "description": "FUZE TEA GREEN GLAS (20 CL)",
+          "quantity": 72,
+          "unit": "st",
+          "netCents": 3915,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-17",
+          "article": "192603",
+          "description": "COCA-COLA (20 CL)",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1220,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-18",
+          "article": "940174",
+          "description": "COCA-COLA ZERO (20 CL)",
+          "quantity": 48,
+          "unit": "st",
+          "netCents": 2440,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-19",
+          "article": "231525",
+          "description": "LEVO GRENADA GOLD FRITUUROLIE 2X5L",
+          "quantity": 20,
+          "unit": "l",
+          "netCents": 4256,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-20",
+          "article": "231533",
+          "description": "LEVO GRENADA GOLD",
+          "quantity": 40,
+          "unit": "l",
+          "netCents": 8590,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-21",
+          "article": "167471",
+          "description": "PROMINENT SIROOP AARDBEI",
+          "quantity": 10,
+          "unit": "l",
+          "netCents": 3584,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-22",
+          "article": "165020",
+          "description": "CHOCOMEL (20 CL)",
+          "quantity": 48,
+          "unit": "st",
+          "netCents": 3250,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-23",
+          "article": "197806",
+          "description": "OATLY HAVERDRANK BARISTA BIO 1L",
+          "quantity": 6,
+          "unit": "l",
+          "netCents": 1105,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-24",
+          "article": "280943",
+          "description": "LEVO ZONNEBLOEMOLIE",
+          "quantity": 3,
+          "unit": "l",
+          "netCents": 670,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-25",
+          "article": "36027",
+          "description": "GILSE RUWE RIETSUIKER FAIR TRADE",
+          "quantity": 3,
+          "unit": "kg",
+          "netCents": 1512,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-26",
+          "article": "140503",
+          "description": "VAN GILSE POEDERSUIKER",
+          "quantity": 1.875,
+          "unit": "kg",
+          "netCents": 1012,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-27",
+          "article": "171199",
+          "description": "VAN GILSE BASTERDSUIKER LICHT",
+          "quantity": 7.2,
+          "unit": "kg",
+          "netCents": 1922,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-28",
+          "article": "620258",
+          "description": "GOUDEN BANIER BL1* TOSTI ACHTERHAM ±26PL",
+          "quantity": 0.5,
+          "unit": "kg",
+          "netCents": 976,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-29",
+          "article": "50467",
+          "description": "DEBIC SLAGROOM MET SUIKER",
+          "quantity": 5,
+          "unit": "l",
+          "netCents": 3590,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-30",
+          "article": "160925",
+          "description": "MEYERIJ SLAGROOM MET SUIKER 32%",
+          "quantity": 2,
+          "unit": "l",
+          "netCents": 984,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-31",
+          "article": "171769",
+          "description": "DE VRIES MINI-MEXICANO'S 50X30G",
+          "quantity": 1.5,
+          "unit": "kg",
+          "netCents": 1949,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-32",
+          "article": "221266",
+          "description": "KERN FRIKANDELLEN NORMAAL",
+          "quantity": 3.4,
+          "unit": "kg",
+          "netCents": 1476,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-33",
+          "article": "500636",
+          "description": "MEDUSA GEDROOGDE TOMATEN IN OLIE",
+          "quantity": 2,
+          "unit": "kg",
+          "netCents": 1970,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-34",
+          "article": "70178",
+          "description": "FRUITLIFE FRAMBOZEN IQF",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 1370,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-35",
+          "article": "192111",
+          "description": "PINGUIN ERWTEN EXTRA FIJN",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 338,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-36",
+          "article": "58614",
+          "description": "COURGETTE GEEL",
+          "quantity": 0.76,
+          "unit": "kg",
+          "netCents": 202,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-37",
+          "article": "66543",
+          "description": "PAPRIKA MIX ONGESORTEERD",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 249,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-38",
+          "article": "184160",
+          "description": "BOSUIEN LANG",
+          "quantity": 2,
+          "unit": "st",
+          "netCents": 250,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-39",
+          "article": "684697",
+          "description": "SLA RUCOLA GEWASSEN",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 872,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-40",
+          "article": "852083",
+          "description": "UI ROOD NET",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 174,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-41",
+          "article": "949539",
+          "description": "COURGETTE GROEN",
+          "quantity": 0.6,
+          "unit": "kg",
+          "netCents": 192,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-42",
+          "article": "977040",
+          "description": "SNACK TOMATEN MIX 1,5KG",
+          "quantity": 3,
+          "unit": "kg",
+          "netCents": 1736,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-43",
+          "article": "369438",
+          "description": "TRES BONNE KORNBOL",
+          "quantity": 6,
+          "unit": "kg",
+          "netCents": 2699,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-44",
+          "article": "19016",
+          "description": "BIO BAGEL EVERYTHING 45X100G",
+          "quantity": 4.5,
+          "unit": "kg",
+          "netCents": 2256,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-45",
+          "article": "288962",
+          "description": "MONCHOU",
+          "quantity": 8,
+          "unit": "kg",
+          "netCents": 9976,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-46",
+          "article": "211083",
+          "description": "DE GOUDSCHE WAEGH GERASPTE JONG BELEGEN",
+          "quantity": 1,
+          "unit": "kg",
+          "netCents": 1438,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-47",
+          "article": "640711",
+          "description": "MINI DONUTS ASSORTI 72X26G",
+          "quantity": 1.872,
+          "unit": "kg",
+          "netCents": 4420,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-48",
+          "article": "27539",
+          "description": "FEL.HANDSCHOEN.NITRIL.ZWART XL",
+          "quantity": 100,
+          "unit": "st",
+          "netCents": 695,
+          "ingredientId": "",
+          "kind": "other",
+          "received": false
+        },
+        {
+          "id": "line-49",
+          "article": "556328",
+          "description": "APPEL JONAGOLD 70/80 12KG",
+          "quantity": 12,
+          "unit": "kg",
+          "netCents": 2226,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-50",
+          "article": "422058",
+          "description": "HVB COBURGER RAUWE HAM 30 PLAKS",
+          "quantity": 0.36,
+          "unit": "kg",
+          "netCents": 1443,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-51",
+          "article": "169518",
+          "description": "F.CHI.CHICKEN NUGGETS",
+          "quantity": 5,
+          "unit": "kg",
+          "netCents": 3824,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        }
+      ],
+      "reviewed": false
+    },
+    "warnings": [
+      "Sligro kan meerdere afleverbonnen bevatten. Bevestig ontvangsten per werkelijke levering. Niet alle emballageregels worden automatisch herkend.",
+      "Controleer alle aantallen, eenheden, kortingen en bedragen tegen de factuur. De herkenning is een voorstel en verwerkt geen voorraad."
+    ]
+  },
+  {
+    "invoice": {
+      "id": "d6c349e6-3214-4f76-b7a5-70ce7d9384de",
+      "supplier": "HANOS Heerenveen",
+      "number": "927923577",
+      "date": "2026-08-28",
+      "source": "",
+      "lines": [
+        {
+          "id": "line-1",
+          "article": "1112218",
+          "description": "HERTOG JAN 30CL                                                           Hertog J",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1750,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-2",
+          "article": "72308606",
+          "description": "KRAT 24 FLES - NL 3,90 BE 4,50                                            HANOS",
+          "quantity": 1,
+          "unit": "st",
+          "netCents": 390,
+          "ingredientId": "",
+          "kind": "deposit",
+          "received": false
+        },
+        {
+          "id": "line-3",
+          "article": "2002440",
+          "description": "FUZE TEA SPARKLING BLACK TEA LEMON                                        Fuze Tea",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1560,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-4",
+          "article": "72300382",
+          "description": "KRAT 2,60 + 24 FLES 0,10 - 5,00 EURO",
+          "quantity": 1,
+          "unit": "st",
+          "netCents": 500,
+          "ingredientId": "",
+          "kind": "deposit",
+          "received": false
+        },
+        {
+          "id": "line-5",
+          "article": "2002470",
+          "description": "FUZE TEA GREEN GLAS 0,2L                                                  Fuze Tea",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1560,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-6",
+          "article": "72300382",
+          "description": "KRAT 2,60 + 24 FLES 0,10 - 5,00 EURO",
+          "quantity": 1,
+          "unit": "st",
+          "netCents": 500,
+          "ingredientId": "",
+          "kind": "deposit",
+          "received": false
+        },
+        {
+          "id": "line-7",
+          "article": "2009230",
+          "description": "FRISTI 65% MINDER SUIKER 20CL                                             Fristi",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1475,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-8",
+          "article": "72308606",
+          "description": "KRAT 24 FLES - NL 3,90 BE 4,50                                             HANOS",
+          "quantity": 1,
+          "unit": "st",
+          "netCents": 390,
+          "ingredientId": "",
+          "kind": "deposit",
+          "received": false
+        },
+        {
+          "id": "line-9",
+          "article": "2010079",
+          "description": "COCA-COLA REGULAR GLAS 20CL                                               Coca-Col",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1395,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-10",
+          "article": "72300382",
+          "description": "KRAT 2,60 + 24 FLES 0,10 - 5,00 EURO",
+          "quantity": 1,
+          "unit": "st",
+          "netCents": 500,
+          "ingredientId": "",
+          "kind": "deposit",
+          "received": false
+        },
+        {
+          "id": "line-11",
+          "article": "2010915",
+          "description": "COCA-COLA ZERO SUGAR 20CL                                                 Coca-Col",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1395,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-12",
+          "article": "72300382",
+          "description": "KRAT 2,60 + 24 FLES 0,10 - 5,00 EURO",
+          "quantity": 1,
+          "unit": "st",
+          "netCents": 500,
+          "ingredientId": "",
+          "kind": "deposit",
+          "received": false
+        },
+        {
+          "id": "line-13",
+          "article": "2014555",
+          "description": "CHOCOLADEMELK VOL ORIGINAL GLAS                                           Chocomel",
+          "quantity": 24,
+          "unit": "st",
+          "netCents": 1625,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-14",
+          "article": "72308606",
+          "description": "KRAT 24 FLES - NL 3,90 BE 4,50                                             HANOS",
+          "quantity": 1,
+          "unit": "st",
+          "netCents": 390,
+          "ingredientId": "",
+          "kind": "deposit",
+          "received": false
+        },
+        {
+          "id": "line-15",
+          "article": "2102352",
+          "description": "APPELSAP SAPTAP BIB BIO                                                   Schulp",
+          "quantity": 10,
+          "unit": "l",
+          "netCents": 2740,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-16",
+          "article": "2116641",
+          "description": "APPEL & VLIERBESSENSAP SAPTAP BIB                                         Schulp",
+          "quantity": 5,
+          "unit": "l",
+          "netCents": 1400,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-17",
+          "article": "41000920",
+          "description": "FRITES SUPERLONGS 7MM                                                      Aviko *A*",
+          "quantity": 5,
+          "unit": "kg",
+          "netCents": 900,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-18",
+          "article": "41203607",
+          "description": "MEERGRANENBOL 140GR                                                        HANOS Se",
+          "quantity": 50,
+          "unit": "st",
+          "netCents": 2990,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        },
+        {
+          "id": "line-19",
+          "article": "41442359",
+          "description": "MINI SNACKS MEGAMIX 8 SOORTEN 20GR                                         Buitenhu *A*",
+          "quantity": 192,
+          "unit": "st",
+          "netCents": 3520,
+          "ingredientId": "",
+          "kind": "product",
+          "received": false
+        }
+      ],
+      "reviewed": false
+    },
+    "warnings": [
+      "Controleer alle aantallen, eenheden, kortingen en bedragen tegen de factuur. De herkenning is een voorstel en verwerkt geen voorraad."
+    ]
+  }
+]

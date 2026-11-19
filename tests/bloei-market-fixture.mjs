@@ -1,0 +1,6 @@
+// Fictitious records only. Never copy a member export into these fixtures.
+export function marketFixture(){
+ const person=(id,name)=>({id,externalId:id,name,emails:[id+'@example.invalid'],address:'Voorbeeldstraat 1',legalType:'natural_person',iban:'',sourceRefs:['synthetic:'+id],issuer:false});
+ const position=(scheme,serials,extra={})=>({id:'synthetic:'+scheme,memberId:'seller',scheme,rate:{zero30:0,cash2:2,grocery6:6,cash26:2.6}[scheme],units:serials.length,unitCents:100000,serials,issued:'2024-02-29',matures:scheme==='zero30'?'2054-02-28':scheme==='cash26'?'2034-02-28':null,sourceRef:'synthetic:'+scheme,origin:'foundation',...extra});
+ return {schema:1,mode:'imported',importedAt:'2026-11-06T10:00:00.000Z',digest:'a'.repeat(64),members:[person('seller','Verkoper Voorbeeld'),person('buyer','Koper Voorbeeld'),person('other','Andere Voorbeeld')],positions:[position('grocery6',[501,502,503],{origin:'legacy',oldSerials:[71,72,73],oldMemberNumber:'voorbeeld-oud'}),position('cash26',[1,2]),position('zero30',[1,2],{unitCents:50000})],credits:[{memberId:'seller',kind:'product',remainingCents:9500,sourceBaseCents:12000,withdrawnCents:2500,annualGrantCents:18000,year:2026,sourceRef:'synthetic:credit'}],history:[],warnings:[],sources:[]};
+}

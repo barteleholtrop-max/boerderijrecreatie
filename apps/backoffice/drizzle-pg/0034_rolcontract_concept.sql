@@ -1,0 +1,1 @@
+ALTER TABLE "pot_roles" ADD COLUMN "contract_draft" text DEFAULT '' NOT NULL;

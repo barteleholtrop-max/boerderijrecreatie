@@ -1,0 +1,1 @@
+ALTER TABLE "ingredients" ADD COLUMN "kind" text DEFAULT 'keuken' NOT NULL;

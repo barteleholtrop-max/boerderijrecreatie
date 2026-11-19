@@ -1,0 +1,3 @@
+-- BB-soort „vrijwilliger” (9 november 2026): ontbrak in de controle, waardoor de vrijwilligersvergoeding online werd geweigerd.
+ALTER TABLE "bb_entries" DROP CONSTRAINT "bb_entries_kind";--> statement-breakpoint
+ALTER TABLE "bb_entries" ADD CONSTRAINT "bb_entries_kind" CHECK (kind in ('pot-week','winkel-week','vrijwilliger','correctie','opname','besteding','ruil','inkomenslening','aflossing','evenement'));

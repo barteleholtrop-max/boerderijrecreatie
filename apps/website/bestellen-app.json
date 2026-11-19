@@ -1,0 +1,25 @@
+{
+  "id": "bestellen",
+  "name": "Boer Bart — Bestellen",
+  "short_name": "Bestellen",
+  "lang": "nl",
+  "start_url": "bestellen.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f5ec",
+  "theme_color": "#36563b",
+  "icons": [
+    {
+      "src": "beeld/bestellen-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "beeld/bestellen-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

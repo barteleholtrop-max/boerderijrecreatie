@@ -1,0 +1,237 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="referrer" content="no-referrer"><meta name="theme-color" content="#243a2d"><title>Oogstdelen · Boer Bart</title>
+<!-- Oogstdelen (wens eigenaar 18 november 2026): een uitnodigende pagina om groentedelen en bloemen te kopen, met pakketten
+     (zoals Bloemplus en Pieperplus) en prijzen per dag. Alle prijzen, pakketten en foto's komen uit de backoffice
+     (/api/public/abonnementen); hier staan geen bedragen. Foto's en lettertypen staan op de hoofdsite (/images, /fonts). -->
+<style>
+@font-face{font-family:"Young Serif";src:url(/fonts/young-serif-latin-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Figtree";src:url(/fonts/figtree-latin-wght.woff2) format("woff2");font-weight:300 900;font-display:swap}
+:root{--bos:#243a2d;--bos-2:#1a2b21;--ink:#1f2a23;--ink-2:#47524a;--muted:#5f685f;--paper:#f5f0e6;--paper-2:#ede4d4;--line:#ddd3c1;--terra:#a7593d;--geel:#e8bb53;--salie:#dfe6dc;--wit:#fffdf8;
+ --display:"Young Serif",Georgia,"Times New Roman",serif;--sans:"Figtree","Helvetica Neue",Arial,system-ui,sans-serif;--arch:50% 50% 16px 16px/30% 30% 16px 16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}button,input,select{font:inherit;color:inherit}a{color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--geel);outline-offset:3px}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.eyebrow{font:650 12.5px/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin:0 0 14px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance}
+h2{font-size:clamp(32px,4.2vw,52px);line-height:1.06;letter-spacing:-.01em;color:var(--bos);margin-bottom:16px}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);max-width:620px;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border:2px solid var(--bos);border-radius:999px;background:var(--bos);color:#fff;font:650 16px/1 var(--sans);text-decoration:none;transition:transform .15s,filter .2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.1)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn.geel{background:var(--geel);border-color:var(--geel);color:var(--bos)}.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}.btn.licht{background:var(--paper);border-color:var(--paper);color:var(--bos)}
+.btn.klein{min-height:44px;padding:0 18px;font-size:15px}
+.arrow{width:1.1em;height:1.1em}
+/* kop */
+.top{position:absolute;inset:0 0 auto;z-index:5}.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+.mark{text-decoration:none;color:#fff;line-height:1}.mark b{display:block;font:400 27px/1 var(--display)}.mark small{font:650 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#f2d79a}
+.top nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.top nav a{color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:8px 14px;border-radius:999px;background:rgba(26,43,33,.35);backdrop-filter:blur(6px)}
+/* opening */
+.hero{position:relative;isolation:isolate;min-height:min(92svh,860px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--bos-2)}
+.hero__bg{position:absolute;inset:0;z-index:-2}.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;animation:zoom 20s ease-out both}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,28,22,.6) 0%,rgba(20,28,22,.45) 30%,rgba(20,28,22,.72) 60%,rgba(20,28,22,.94) 100%),linear-gradient(90deg,rgba(20,28,22,.55) 0%,rgba(20,28,22,0) 70%)}
+.hero h1,.hero .lead,.hero .eyebrow{text-shadow:0 2px 18px rgba(0,0,0,.55),0 1px 3px rgba(0,0,0,.45)}
+.hero__inner{padding-top:140px;padding-bottom:clamp(56px,8vw,96px);display:grid;gap:28px;align-items:end}
+.hero .eyebrow{color:#f2d79a}
+.hero h1{font-size:clamp(50px,9vw,128px);line-height:.92;letter-spacing:-.03em;text-shadow:0 6px 40px rgba(0,0,0,.35)}
+.hero h1 em{display:block;font-style:italic;color:var(--geel)}
+.hero .lead{color:#fff;max-width:540px;font-weight:500}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.badges{display:flex;flex-wrap:wrap;gap:10px}.badge{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:rgba(255,253,248,.14);border:1px solid rgba(255,253,248,.3);backdrop-filter:blur(8px);font-size:15px;font-weight:600}
+.badge i{width:8px;height:8px;border-radius:50%;background:var(--geel)}
+@media(min-width:960px){.hero__inner{grid-template-columns:1.3fr .7fr}.badges{flex-direction:column;align-items:flex-end}}
+.mark b{white-space:nowrap}
+@media(max-width:640px){.top nav a:not(.nav-main){display:none}.hero__inner{padding-top:120px}.badge{font-size:13.5px;padding:7px 12px}.hero__cta .btn{flex:1 1 auto}}
+.rise{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes zoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+/* zo werkt het */
+.section{padding:clamp(64px,8vw,112px) 0}
+.how{display:grid;gap:16px;margin-top:36px;counter-reset:stap}
+@media(min-width:820px){.how{grid-template-columns:repeat(3,1fr);gap:22px}}
+.how article{background:var(--wit);border-radius:22px;padding:28px 26px;box-shadow:0 1px 0 var(--line);position:relative}
+.how article::before{counter-increment:stap;content:counter(stap);display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--bos);color:var(--geel);font:400 22px/1 var(--display);margin-bottom:16px}
+.how h3{font-size:24px;color:var(--bos);margin-bottom:8px}.how p{margin:0;color:var(--ink-2)}
+/* pakketten */
+.pakket-sectie{background:var(--bos);color:var(--paper)}
+.pakket-sectie h2{color:var(--paper)}.pakket-sectie .lead{color:#d8e0d6}.pakket-sectie .eyebrow{color:var(--geel)}
+.pakketten{display:grid;gap:20px;margin-top:40px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.pakket{background:var(--wit);color:var(--ink);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;box-shadow:0 18px 40px -26px rgba(0,0,0,.6);border:3px solid transparent}
+.pakket:hover{transform:translateY(-6px);box-shadow:0 30px 60px -28px rgba(0,0,0,.7)}
+.pakket.is-gekozen{border-color:var(--geel)}
+.pakket__foto{aspect-ratio:4/3;background:var(--salie);overflow:hidden;position:relative}.pakket__foto img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.pakket:hover .pakket__foto img{transform:scale(1.05)}
+.pakket__tag{position:absolute;left:14px;top:14px;background:var(--geel);color:var(--bos);font:700 12px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-radius:999px}
+.pakket__body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.pakket{container-type:inline-size}.pakket h3{font-size:clamp(19px,8cqi,30px);color:var(--bos);line-height:1.05;overflow-wrap:break-word}
+.pakket__zin{margin:0;color:var(--ink-2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}.chips li{background:var(--salie);color:var(--bos);border-radius:999px;padding:5px 11px;font-size:14px;font-weight:600}
+.prijs{margin:auto 0 0;padding-top:6px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.prijs strong{font:400 34px/1 var(--display);color:var(--terra)}.prijs span{color:var(--muted);font-size:14.5px}
+.pakket .btn{margin-top:6px;width:100%}
+.leeg{background:rgba(255,253,248,.08);border:1px dashed rgba(255,253,248,.35);border-radius:22px;padding:28px;margin-top:36px;max-width:720px}
+.leeg p{margin:0 0 8px;color:#e4ebe2}
+/* sfeer */
+.sfeer{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(8px,1.4vw,16px);margin-top:36px}
+@media(min-width:900px){.sfeer{grid-template-columns:1.3fr 1fr 1fr 1.3fr;grid-auto-rows:240px}.sfeer figure:nth-child(1){grid-row:span 2}.sfeer figure:nth-child(4){grid-row:span 2}}
+.sfeer figure{margin:0;border-radius:18px;overflow:hidden;background:var(--paper-2);min-height:170px;position:relative}
+.sfeer img{width:100%;height:100%;object-fit:cover;transition:transform .6s}.sfeer figure:hover img{transform:scale(1.05)}
+.sfeer figcaption{position:absolute;left:12px;bottom:12px;background:rgba(255,253,248,.92);color:var(--bos);font-weight:650;font-size:14px;padding:6px 12px;border-radius:999px}
+/* samenstellen */
+.bouw{background:var(--paper-2)}
+.layout{display:grid;gap:22px;align-items:start;margin-top:32px}
+@media(min-width:960px){.layout{grid-template-columns:1.35fr 1fr}}
+.card{background:var(--wit);border-radius:22px;padding:clamp(20px,3vw,30px);margin-bottom:18px;box-shadow:0 1px 0 var(--line)}
+.heading{display:flex;gap:14px;align-items:center;margin-bottom:18px}.num{width:38px;height:38px;flex:none;border-radius:50%;background:var(--bos);color:var(--geel);display:grid;place-items:center;font:400 19px/1 var(--display)}
+.card h3{font-size:26px;color:var(--bos)}
+.person{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--paper-2)}.person:last-child{border-bottom:0}.person strong{font-weight:600}
+.counter{display:flex;align-items:center;gap:6px}.counter button{width:42px;height:42px;border-radius:50%;border:2px solid var(--line);background:#fff;font-size:20px;line-height:1;color:var(--bos)}.counter button:hover{border-color:var(--bos)}
+.counter input{width:52px;text-align:center;border:0;font-weight:700;font-size:19px;background:transparent}
+.rates{font-size:14px;color:var(--muted);margin:14px 0 0}
+.options{display:grid;gap:12px}@media(min-width:560px){.options{grid-template-columns:1fr 1fr}}
+.choice{display:block;border:2px solid var(--line);border-radius:16px;padding:16px 18px;cursor:pointer;transition:border-color .2s,background .2s}.choice:has(input:checked){border-color:var(--bos);background:var(--salie)}
+.choice input{accent-color:var(--bos);margin-right:8px}.basekeuze{margin-bottom:14px}.choice small{display:block;color:var(--muted);margin-top:4px}
+.extra{display:flex;gap:14px;align-items:center;border:2px solid var(--line);border-radius:16px;padding:12px;margin-bottom:10px;cursor:pointer;transition:border-color .2s,background .2s}.extra:has(input:checked){border-color:var(--bos);background:var(--salie)}
+.extra input{accent-color:var(--bos);width:22px;height:22px;flex:none}.extra img{width:64px;height:64px;border-radius:12px;object-fit:cover;flex:none}
+.extra .info{display:flex;flex-direction:column}.extra .info small{color:var(--muted);font-size:14px}
+.field{display:block;margin-bottom:14px}.field span{display:block;font-weight:600;margin-bottom:6px;font-size:15px}
+.field input,.field select{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:12px;background:#fff}.field input:focus,.field select:focus{border-color:var(--bos);outline:none}
+.hint{font-size:14px;color:var(--muted);margin:0 0 14px}
+.check-terms{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:15px}.check-terms input{accent-color:var(--bos);width:20px;height:20px;flex:none;margin-top:3px}
+#terms{white-space:pre-line;color:var(--ink-2);font-size:15px}
+.summary{position:sticky;top:20px;background:var(--bos);color:var(--paper);border-radius:26px;padding:clamp(22px,3vw,32px);box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.summary .eyebrow{color:var(--geel)}.summary h3{font-size:30px;margin-bottom:6px}.micro{font-size:14px;color:#cfd8cd;margin:6px 0}
+.dagprijs{background:rgba(255,253,248,.08);border-radius:18px;padding:18px;margin:18px 0;text-align:center}.dagprijs strong{display:block;font:400 clamp(40px,5vw,56px)/1 var(--display);color:var(--geel)}.dagprijs span{color:#dfe6dc;font-size:15px}
+.summary-row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,253,248,.14)}.summary-row small{display:block;color:#b9c6b8;font-size:13px}
+.total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:16px 0 6px}.total strong{font:400 30px/1 var(--display)}
+.schedule{font-size:14px;color:#cfd8cd;margin:10px 0 18px}
+.summary .btn{width:100%;background:var(--geel);border-color:var(--geel);color:var(--bos)}
+.rules{font-size:13px;color:#b9c6b8;margin:12px 0 0}
+.error{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}.error:not(:empty){margin-top:20px}.error:not(:empty)::before{content:"";}
+#message:not(:empty){background:#fbe9e2;color:#7a2e17;border-radius:14px;padding:14px 18px;font-weight:600}
+#confirmation{max-width:760px;margin:40px auto;padding:30px;background:var(--wit);border-radius:22px}#confirmation .btn{margin:8px 8px 0 0}
+#loading{font-size:18px;color:var(--ink-2)}
+.footer{background:var(--bos-2);color:#cfd8cd;padding:40px 0}.footer .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between}.footer a{color:#fff}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}.reveal.is-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style></head><body>
+<header class="top"><div class="wrap"><a class="mark" href="/" aria-label="Boer Bart, naar de voorpagina"><b>Boer Bart</b><small>Rotstergaast</small></a><nav aria-label="Hoofdnavigatie"><a href="#pakketten">Pakketten</a><a class="nav-main" href="#samenstellen">Stel samen</a><a href="/boerderijwinkel/">De winkel</a></nav></div></header>
+
+<section class="hero" aria-labelledby="titel">
+ <div class="hero__bg" aria-hidden="true"><img src="/images/bloemen-zonnebloem-koeien-1200.webp" srcset="/images/bloemen-zonnebloem-koeien-960.webp 960w,/images/bloemen-zonnebloem-koeien-1200.webp 1200w" sizes="100vw" alt="" fetchpriority="high"></div>
+ <div class="wrap hero__inner">
+  <div>
+   <p class="eyebrow rise" style="animation-delay:.1s">Oogstdelen · van het erf</p>
+   <h1 id="titel"><span class="rise" style="display:block;animation-delay:.2s">Een stukje oogst.</span><em class="rise" style="animation-delay:.4s">Elke week.</em></h1>
+   <p class="lead rise" style="animation-delay:.6s">Je deelt in de oogst van de tuin. Op de dagen dat wij open zijn, haal je in de winkel zoveel groente van het seizoen als jullie gezin nodig heeft. Je kiest zelf wat je meeneemt.</p>
+   <div class="hero__cta rise" style="animation-delay:.8s"><a class="btn geel" href="#pakketten">Kies je oogstdeel<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn ghost" href="#zo-werkt-het">Zo werkt het</a></div>
+  </div>
+  <div class="badges rise" style="animation-delay:1s"><span class="badge"><i></i>Prijs per persoon per dag</span><span class="badge"><i></i>Zelf kiezen in de winkel</span><span class="badge"><i></i>Zoveel als je gezin nodig heeft</span></div>
+ </div>
+</section>
+
+<section class="section" id="zo-werkt-het" aria-labelledby="hoe">
+ <div class="wrap">
+  <p class="eyebrow">Zo werkt het</p>
+  <h2 id="hoe">Delen in de oogst, zo simpel is het</h2>
+  <p class="lead">Geen doos die thuis wordt bezorgd en geen vast pakket. Met een oogstdeel deel je in wat de tuin geeft: alle groente die in de winkel ligt, van het seizoen. Zo eet je met de seizoenen mee.</p>
+  <div class="how">
+   <article class="reveal"><h3>Kies je oogstdeel</h3><p>Groente voor het hele gezin, eventueel met een extraatje: een bos bloemen, aardappelen of iets anders van het erf. Of alleen bloemen.</p></article>
+   <article class="reveal"><h3>Wie eten er mee?</h3><p>Je betaalt per persoon per dag. Voor kinderen geldt een eigen tarief, zodat het klopt voor jullie gezin.</p></article>
+   <article class="reveal"><h3>Haal wat je nodig hebt</h3><p>Kom op de dagen dat de winkel open is en neem zoveel groente mee als jullie gezin nodig heeft. Wat je kiest maakt niet uit, als het maar groente uit de winkel is.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section pakket-sectie" id="pakketten" aria-labelledby="kies">
+ <div class="wrap">
+  <p class="eyebrow">Onze pakketten</p>
+  <h2 id="kies">Kies jouw oogstdeel</h2>
+  <p class="lead">Groente van het seizoen voor het hele gezin, met of zonder extra’s, of alleen een bos bloemen. De prijs is per dag, voor één volwassene. Voor jullie gezin reken je hieronder precies uit.</p>
+  <div id="pakketlijst" class="pakketten" aria-live="polite"></div>
+  <div id="pakketleeg" class="leeg" hidden><p><strong>De oogstdelen voor het nieuwe seizoen komen eraan.</strong></p><p>Kom gerust langs in de boerderijwinkel of houd deze pagina in de gaten.</p></div>
+ </div>
+</section>
+
+<section class="section" aria-labelledby="erf">
+ <div class="wrap">
+  <p class="eyebrow">Van het erf</p>
+  <h2 id="erf">Wat het seizoen brengt</h2>
+  <p class="lead">Groente uit de tuin, eieren van de kippen in de wei en bloemen van de tuin van Nijemoed. Elke week een beetje anders.</p>
+  <div class="sfeer">
+   <figure class="reveal"><img src="/images/bart-groente-960.webp" alt="Boer Bart met boerenkool uit de tuin" loading="lazy"><figcaption>Uit de tuin</figcaption></figure>
+   <figure class="reveal"><img src="/images/eieren-960.webp" alt="Twee kinderen met een doos eieren in de wei" loading="lazy"><figcaption>Van de kippen</figcaption></figure>
+   <figure class="reveal"><img src="/images/bloemen-boeket-960.webp" alt="Een boeket met dahlia's en cosmos" loading="lazy"><figcaption>Bloemen</figcaption></figure>
+   <figure class="reveal"><img src="/images/bloemen-emmers-960.webp" alt="Emmers vol vers gesneden bloemen" loading="lazy"><figcaption>Vers gesneden</figcaption></figure>
+   <figure class="reveal"><img src="/images/winkel-groente-960.webp" alt="Groenten in de boerderijwinkel" loading="lazy"><figcaption>Op het erf</figcaption></figure>
+   <figure class="reveal"><img src="/images/kippen-960.webp" alt="Kippen in de wei bij de boerderij" loading="lazy"><figcaption>Met aandacht</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<div id="message" class="error" role="status"></div>
+<section id="confirmation" hidden aria-live="polite"></section>
+<main class="section bouw" id="samenstellen" aria-labelledby="stel">
+ <div class="wrap">
+  <p class="eyebrow">Stel samen</p>
+  <h2 id="stel">Stel jouw oogst samen</h2>
+  <p class="lead">Kies een pakket hierboven of stel zelf samen, met of zonder oogstdeel groente. De prijs rekenen we meteen voor je uit.</p>
+  <p id="loading">Het actuele aanbod wordt opgehaald…</p>
+  <form id="builder" hidden><div class="layout"><div>
+   <div class="card"><div class="heading"><span class="num">1</span><h3>Wie eten er mee?</h3></div><label class="choice basekeuze" id="baseChoice" hidden><input type="checkbox" id="withBase" checked><strong>Met oogstdeel groente</strong><small>Zonder vinkje kies je alleen losse extra’s, bijvoorbeeld alleen bloemen.</small></label><div id="familyBlock"><div id="familyInputs"></div><p id="rates" class="rates"></p></div></div>
+   <div class="card"><div class="heading"><span class="num">2</span><h3>Jullie oogstritme</h3></div><div class="options"><label class="choice"><input type="radio" name="rhythm" value="1" checked><strong>Elke week</strong><small>Elke week een verse portie.</small></label><label class="choice"><input type="radio" name="rhythm" value="2"><strong>Om de week</strong><small>Eén portie per twee weken.</small></label></div></div>
+   <div class="card"><div class="heading"><span class="num">3</span><h3>Iets extra’s van het erf</h3></div><div id="extras"></div></div>
+   <div class="card"><div class="heading"><span class="num">4</span><h3>Afhalen en jouw gegevens</h3></div><label class="field"><span>Eerste afhaaldag</span><select id="pickupDate" required></select></label><label class="field"><span>Tijdstip</span><select id="pickupTime" required></select></label><p class="hint">Ook het afhaalmoment in de tweede week wordt gecontroleerd tegen de openingstijden. Gesloten dagen worden niet automatisch verplaatst.</p><label class="field"><span>Aanbieding</span><select id="offer"><option value="">Geen aanbieding</option></select></label><label class="field"><span>Naam</span><input id="contactName" autocomplete="name" maxlength="100" required></label><label class="field"><span>E-mailadres</span><input id="email" type="email" autocomplete="email" maxlength="200" required></label><label class="field"><span>Telefoon (optioneel)</span><input id="phone" type="tel" autocomplete="tel" maxlength="40"></label></div>
+   <div class="card"><h3>Onze afspraken</h3><p id="terms"></p><label class="check-terms"><input type="checkbox" id="accepted" required><span>Ik ga akkoord met de bovenstaande voorwaarden en de getoonde prijs. Ik heb de afgesproken prijs en voorwaarden gelezen.</span></label><label class="check-terms"><input type="checkbox" id="recurringConsent" required><span id="consentText">Automatische incassotoestemming wordt geladen.</span></label></div>
+  </div>
+  <aside class="summary" aria-label="Jouw oogst"><p class="eyebrow">Van het erf naar jouw huis</p><h3 id="summaryTitle">Dit wordt jouw oogst.</h3><div id="household" class="micro"></div>
+   <div class="dagprijs"><strong id="perDay">—</strong><span>per dag voor jullie gezin</span></div>
+   <div id="summaryLines" aria-live="polite"></div>
+   <div class="total"><span>Eerste 2 weken<br><small class="micro">Inclusief btw</small></span><strong id="total">—</strong></div>
+   <p id="later" class="micro"></p><p id="autoSummary" class="micro"></p><div id="schedule" class="schedule"></div>
+   <button type="submit" class="btn" id="subscribe" disabled>Inschrijven en eerste betaling</button>
+   <p class="rules">Eerste betaling met iDEAL. Daarna automatische SEPA-incasso iedere twee weken. Afhalen staat pas vast na bevestigde betaling.</p>
+  </aside></div></form>
+ </div>
+</main>
+<footer class="footer"><div class="wrap"><a class="mark" href="/" style="color:#fff"><b>Boer Bart</b><small>Rotstergaast</small></a><span>Een stukje van het erf. Voor thuis.</span><a href="/privacy/">Privacy</a></div></footer>
+<script>
+'use strict';
+const $=s=>document.querySelector(s),money=c=>new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(c/100),groups=[['adults','Volwassenen'],['child05','Kinderen · 0–5 jaar'],['child69','Kinderen · 6–9 jaar'],['child1014','Kinderen · 10–14 jaar'],['child15','Kinderen · 15+']];let source=null,current=null,timer,sequence=0,busy=false,pending=null,chosen=null;
+// Foto's bij pakketten en extra's komen uit de beeldbank (backoffice). Zonder eigen foto een passende foto van het erf.
+const FALLBACK={groente:'/images/winkel-groente-960.webp',bloem:'/images/bloemen-boeket-960.webp',extra:'/images/eieren-960.webp'};
+const PERIOD_DAYS=14;
+function el(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n}
+function img(src,alt){const i=el('img');i.src=src;i.alt=alt||'';i.loading='lazy';i.onerror=()=>{i.style.visibility='hidden'};return i}
+function notice(t){$('#message').textContent=t||''}
+async function api(body){const r=await fetch('/api/public/abonnementen',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),d=await r.json();if(!r.ok){const e=Error(d.error||'Het lukt nu niet. Probeer het opnieuw.');e.status=r.status;throw e}return d}
+function choices(){return {family:Object.fromEntries(groups.map(([id])=>[id,Number($('#'+id).value)])),interval:Number($('input[name="rhythm"]:checked').value),extras:[...document.querySelectorAll('[data-extra]:checked')].map(x=>x.dataset.extra),offerId:$('#offer').value||null,pickup:{date:$('#pickupDate').value,time:$('#pickupTime').value},...(withBase()?{}:{base:false})}}
+function withBase(){return $('#withBase').checked}
+// Zonder oogstdeel groente (bijvoorbeeld alleen bloemen) is het gezin niet nodig; elk extra mag los.
+function applyBase(){$('#familyBlock').hidden=!withBase()}
+function times(){const d=source.pickup.find(d=>d.date===$('#pickupDate').value);$('#pickupTime').replaceChildren(...(d?.times||[]).map(t=>{const o=el('option',t);o.value=t;return o}))}
+function nameOf(item){return source.products.find(p=>p.id===item.productId)?.name||''}
+// Pakket dat precies past bij de aangevinkte extra's (of „eigen samenstelling”).
+function matchPackage(){const c=choices(),ex=c.extras.slice().sort().join(','),b=c.base!==false;return shown.find(p=>(p.base!==false)===b&&p.extras.slice().sort().join(',')===ex)||null}
+function markChosen(){const m=matchPackage();chosen=m?m.id:null;document.querySelectorAll('.pakket').forEach(c=>c.classList.toggle('is-gekozen',c.dataset.pakket===chosen));$('#summaryTitle').textContent=m?'Jouw '+m.name+'.':'Jouw eigen oogst.'}
+function invalidate(){applyBase();current=null;$('#subscribe').disabled=true;$('#accepted').checked=false;$('#recurringConsent').checked=false;markChosen();sequence++;clearTimeout(timer);timer=setTimeout(refreshQuote,350)}
+async function refreshQuote(){const seq=++sequence;current=null;$('#subscribe').disabled=true;notice('');try{const selection=choices(),q=await api({action:'quote',selection});if(seq!==sequence)return;current={...q,selection};$('#terms').textContent=q.terms;$('#consentText').textContent=q.recurring.consent;$('#autoSummary').textContent='Eerste automatische incasso: '+q.recurring.firstChargeDate+' · '+money(q.next.totalCents)+'. Daarna iedere '+q.recurring.intervalDays+' dagen, zeven dagen vóór de nieuwe oogstperiode.';$('#summaryLines').replaceChildren();q.quote.lines.forEach(l=>{const row=el('div',undefined,'summary-row'),name=el('span',l.name);name.append(el('small',l.interval===1?'Elke week':'Om de week'));row.append(name,el('span',money(l.totalCents),'money'));$('#summaryLines').append(row)});if(q.quote.discountCents)$('#summaryLines').append(el('p','Welkomstvoordeel: '+money(q.quote.discountCents),'micro'));$('#total').textContent=money(q.quote.totalCents);$('#perDay').textContent=money(Math.round(q.next.totalCents/(q.recurring.intervalDays||PERIOD_DAYS)));$('#later').textContent='Daarna '+money(q.next.totalCents)+' per 2 weken.';$('#household').textContent=selection.base===false?'Zonder oogstdeel groente':groups.filter(([id])=>selection.family[id]).map(([id,label])=>selection.family[id]+' '+label.toLowerCase()).join(' · ');$('#schedule').textContent='Eerste afhaling: '+selection.pickup.date+' om '+selection.pickup.time+'. '+q.quote.lines.map(l=>l.name+': '+(l.interval===1?'elke week':'om de week')).join(' · ');$('#subscribe').disabled=false}catch(e){if(seq!==sequence)return;$('#total').textContent='—';$('#perDay').textContent='—';$('#summaryLines').replaceChildren();$('#later').textContent='';$('#schedule').textContent='Kies een beschikbaar afhaalmoment.';notice(e.message)}}
+async function payment(requestId){const r=await fetch('/api/public/payments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({requestId,page:'/abonnementen.html'})}),d=await r.json();if(!r.ok)throw Error(d.error||'De betaling kan nu niet starten.');if(d.checkoutUrl){location.assign(d.checkoutUrl);return}if(d.paid)await showPayment(requestId)}
+async function showPayment(requestId){$('#builder').hidden=true;$('#loading').hidden=true;$('#confirmation').hidden=false;$('#confirmation').replaceChildren(el('h2','Jouw oogstabonnement'));$('#confirmation').scrollIntoView();const r=await fetch('/api/public/payments?bestelling='+encodeURIComponent(requestId),{cache:'no-store'}),d=await r.json();if(!r.ok)throw Error(d.error||'Deze betaling is niet gevonden.');const paid=d.payment?.status==='betaald'||d.paymentStatus==='betaald'||d.paid===true;$('#confirmation').append(el('p',d.harvest?.status==='terugboeking'?'Er is een terugboeking geregistreerd. De automatische incasso staat stil; neem contact op met Boer Bart.':paid?'Je betaling is bevestigd. Je oogst staat op de afhaallijst.':d.harvest?.status==='incasso'?'Je automatische incasso wordt verwerkt. De afhalingen worden bevestigd zodra Mollie de betaling heeft bevestigd.':'Je inschrijving is vastgelegd. Rond je eerste iDEAL-betaling af om de incassomachtiging te activeren.'));if(d.harvest){$('#confirmation').append(el('p','Vervolgincasso: '+d.harvest.status+'. '+(d.harvest.nextStart?'Volgende oogstperiode vanaf '+d.harvest.nextStart+'. ':'')));if(d.harvest.problem)$('#confirmation').append(el('p',d.harvest.problem));}if(d.test)$('#confirmation').append(el('p','Dit is een proefbetaling; geen echte verkoop.'));if(!paid&&(!d.harvest||d.harvest.retryAllowed)){const b=el('button','Met iDEAL betalen en incasso toestaan','btn');b.type='button';b.onclick=()=>{b.disabled=true;payment(requestId).catch(e=>{notice(e.message);b.disabled=false})};$('#confirmation').append(b)}const refresh=el('button','Betaalstatus verversen','btn');refresh.type='button';refresh.onclick=()=>showPayment(requestId).catch(e=>notice(e.message));$('#confirmation').append(refresh);$('#confirmation').append(el('p','Bewaar deze persoonlijke link om je betaling opnieuw te openen. Deel hem niet openbaar.','micro'))}
+async function enroll(){if(!current||busy)return;if(pending){notice('Haal eerst je eerdere aanmelding op via de knop bovenaan. Zo voorkomen we een dubbele inschrijving.');return;}busy=true;$('#subscribe').disabled=true;notice('');try{if(!pending)pending={action:'inschrijven',requestId:crypto.randomUUID(),selection:current.selection,quoteToken:current.token,name:$('#contactName').value,email:$('#email').value,phone:$('#phone').value,accepted:$('#accepted').checked,recurringConsent:$('#recurringConsent').checked};sessionStorage.setItem('bb-harvest-pending',JSON.stringify(pending));const result=await api(pending);sessionStorage.removeItem('bb-harvest-pending');pending=null;const requestId=result.periods[0].requestId;history.replaceState(null,'','/abonnementen.html?bestelling='+encodeURIComponent(requestId));await showPayment(requestId);await payment(requestId)}catch(e){if(e.status===400||e.status===409){pending=null;sessionStorage.removeItem('bb-harvest-pending');await refreshQuote()}notice(e.message);if(current)$('#subscribe').disabled=false}finally{busy=false}}
+$('#builder').addEventListener('submit',e=>{e.preventDefault();enroll()});
+// Prijs per dag voor één volwassene die elke week ophaalt: het dagtarief van het oogstdeel plus de extra's per week gedeeld door 7.
+function dayPrice(base,extras,withB){return (withB?base.dayCents.adults:0)+extras.reduce((s,i)=>s+i.weeklyCents,0)/7}
+let shown=[];
+function pickPackage(p){$('#withBase').checked=p.base!==false;applyBase();document.querySelectorAll('[data-extra]').forEach(x=>{x.checked=p.extras.includes(x.dataset.extra)});invalidate();$('#samenstellen').scrollIntoView()}
+function renderPackages(base){const extras=source.config.items.filter(i=>i.kind==='extra'),configured=source.config.packages||[];
+ // Zonder pakketten in de backoffice: het oogstdeel en per extra een „plus”-kaart, met de namen uit het assortiment.
+ // Zonder pakketten in de backoffice: per extra ook een kaart „Alleen …” (elk extra mag los, zonder oogstdeel groente).
+ const list=[{id:'basis',name:'Oogstdeel',tagline:base.description||'Zoveel groente van het seizoen als jullie nodig hebben, zelf gekozen in de winkel.',extras:[],photo:base.photo||''},...(configured.length?configured:[...extras.map(i=>({id:'plus-'+i.id,name:'Oogstdeel + '+nameOf(i),tagline:i.description,extras:[i.id],photo:i.photo||''})),...extras.map(i=>({id:'los-'+i.id,name:'Alleen '+nameOf(i).toLowerCase(),tagline:i.description,extras:[i.id],photo:i.photo||'',base:false}))])];shown=list;
+ $('#pakketlijst').replaceChildren(...list.map((p,index)=>{const items=p.extras.map(id=>extras.find(i=>i.id===id)).filter(Boolean),card=el('article',undefined,'pakket reveal'),foto=el('div',undefined,'pakket__foto'),body=el('div',undefined,'pakket__body');card.dataset.pakket=p.id;card.style.transitionDelay=(index%4)*80+'ms';
+  const fallback=items.some(i=>/bloem/i.test(nameOf(i)))?FALLBACK.bloem:items.length?FALLBACK.extra:FALLBACK.groente;foto.append(img(p.photo||(items[0]&&items[0].photo)||fallback,''));if(index===0)foto.append(el('span','De basis','pakket__tag'));else if(configured.length&&index===1)foto.append(el('span','Favoriet','pakket__tag'));
+  const withB=p.base!==false,chips=el('ul',undefined,'chips');if(withB)chips.append(el('li',nameOf(base)||'Oogstdeel groente'));chips.append(...items.map(i=>el('li',nameOf(i))));
+  const prijs=el('p',undefined,'prijs');prijs.append(el('strong',money(Math.round(dayPrice(base,items,withB)))),el('span',withB?'per dag · 1 volwassene':'per dag · zonder oogstdeel groente'));
+  const b=el('button','Kies '+p.name,'btn klein');b.type='button';b.onclick=()=>pickPackage(p);
+  body.append(el('h3',p.name),...(p.tagline?[el('p',p.tagline,'pakket__zin')]:[]),chips,prijs,b);card.append(foto,body);return card}));observe()}
+let io=null;function observe(){const items=document.querySelectorAll('.reveal:not(.is-in)');if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches){items.forEach(x=>x.classList.add('is-in'));return}io=io||new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});items.forEach(x=>io.observe(x))}
+async function start(){observe();try{const requestId=new URLSearchParams(location.search).get('bestelling');if(requestId){if(!/^[a-f0-9-]{36}$/.test(requestId))throw Error('Ongeldige betaallink.');await showPayment(requestId);return}const r=await fetch('/api/public/abonnementen',{cache:'no-store'});source=await r.json();if(!r.ok)throw Error(source.error||'Het aanbod is nu niet beschikbaar.');if(!source.config.enabled||!source.config.items.some(i=>i.kind==='family')||!source.pickup.length){$('#pakketleeg').hidden=false;$('#loading').textContent='Er zijn op dit moment geen oogstabonnementen beschikbaar. Vraag ernaar in de winkel.';return}const base=source.config.items.find(i=>i.kind==='family');renderPackages(base);$('#familyInputs').replaceChildren();groups.forEach(([id,label],index)=>{const row=el('div',undefined,'person'),name=el('strong',label),counter=el('div',undefined,'counter'),input=el('input');name.id='label-'+id;input.id=id;input.type='number';input.min='0';input.max='12';input.value=index===0?'2':'0';input.setAttribute('aria-labelledby',name.id);input.inputMode='numeric';for(const [sign,step] of [['−',-1],['+',1]]){const b=el('button',sign);b.type='button';b.setAttribute('aria-label',label+(step===1?': één meer':': één minder'));b.onclick=()=>{input.value=String(Math.max(0,Math.min(12,(Number(input.value)||0)+step)));invalidate()};counter.append(b);if(step===-1)counter.append(input)}row.append(name,counter);$('#familyInputs').append(row)});$('#rates').textContent='Per dag, elke week: '+groups.map(([id,label])=>label.toLowerCase()+' '+money(base.dayCents[id])).join(' · ')+'. Om de week: '+groups.map(([id,label])=>label.toLowerCase()+' '+money(base.biweeklyDayCents[id])).join(' · ')+'.';$('#extras').replaceChildren();source.config.items.filter(i=>i.kind==='extra').forEach(i=>{const p=source.products.find(p=>p.id===i.productId);if(!p)return;const label=el('label',undefined,'extra'),input=el('input'),info=el('span',undefined,'info');input.type='checkbox';input.dataset.extra=i.id;info.append(el('strong',p.name),el('small',i.description),el('small',i.rhythm==='weekly'?money(i.weeklyCents)+' per week · elke week ophalen':money(i.weeklyCents)+' per keer bij elke week / '+money(i.biweeklyCents)+' per keer bij om de week'));label.append(input,...(i.photo?[img(i.photo,'')]:[]),info);$('#extras').append(label)});$('#baseChoice').hidden=!source.config.items.some(i=>i.kind==='extra');applyBase();$('#pickupDate').replaceChildren(...source.pickup.map(d=>{const o=el('option',d.date);o.value=d.date;return o}));times();source.config.offers.forEach(o=>{const option=el('option',o.name+' · '+o.percent+'% in de eerste periode');option.value=o.id;$('#offer').append(option)});$('#terms').textContent=source.config.terms;$('#pickupDate').addEventListener('input',times);document.querySelectorAll('#builder input:not(#contactName):not(#email):not(#phone):not(#accepted):not(#recurringConsent),#builder select').forEach(n=>n.addEventListener('input',invalidate));$('#builder').hidden=false;$('#loading').hidden=true;markChosen();try{const retry=sessionStorage.getItem('bb-harvest-pending');if(retry){pending=JSON.parse(retry);const button=el('button','Eerdere aanmelding opnieuw ophalen','btn');button.type='button';button.onclick=async()=>{try{const result=await api(pending);sessionStorage.removeItem('bb-harvest-pending');pending=null;const id=result.periods[0].requestId;location.assign('/abonnementen.html?bestelling='+id)}catch(e){notice(e.message)}};$('#confirmation').hidden=false;$('#confirmation').append(el('p','Er staat nog een eerdere aanmelding open in deze browser.'),button)}}catch{}await refreshQuote()}catch(e){$('#pakketleeg').hidden=false;$('#loading').textContent='Het abonnementenaanbod is nu niet beschikbaar.';notice(e.message)}}
+start();
+</script></body></html>
