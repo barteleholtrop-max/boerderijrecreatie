@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f5ec">
+<title>Zelfscan — Boerderijrecreatie</title>
+<meta name="description" content="Boodschappen in de boerderijwinkel van Boerderijrecreatie: zelf scannen en afrekenen met je eigen telefoon.">
+<!-- Het aanbod komt live uit de centrale backoffice (GET /api/public/products).
+     Leeg = op deze computer poort 3001; online via het eigen adres van de website, dat nginx op Cloud Run doorstuurt naar de backoffice
+     (deploy/website/nginx.conf.template, docs/ONLINE-ZETTEN.md). Alleen invullen als de website ooit zonder die doorsturing draait. -->
+<meta name="boerbart-backoffice" content="">
+<link rel="icon" href="beeld/logo.webp" type="image/webp">
+<link rel="apple-touch-icon" href="beeld/zelfscan-192.png">
+<!-- Op de iPhone kan de gast de bestelpagina op het beginscherm zetten; dan werken meldingen ("Je bestelling staat klaar"). -->
+<!-- Zelfscan (wens eigenaar 12 november 2026: „een zelfscankassa voor gasten op hun eigen telefoon”, met een eigen icoon op het
+     startscherm): een eigen pagina en een eigen app (zelfscan-app.json, eigen id en werkgebied zelfscan.html), los van de bestelpagina
+     en van de zelfkassa op de tablet. Dezelfde bestelapp (bestellen.js); op deze pagina alleen de winkel. -->
+<link rel="manifest" href="zelfscan-app.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Zelfscan">
+<link rel="stylesheet" href="bestellen.css">
+<!-- Uitstraling (wens eigenaar 9 november 2026): één bestelapp, meerdere uitstralingen. De eigenaar kiest bij Website & uitstraling;
+     bestellen.js leest de keuze uit /api/public/order-options. Hier alleen de laatst bekende keuze, zodat de pagina niet eerst in
+     een andere uitstraling verschijnt. ?uitstraling=d, =e of =klassiek bekijkt er één zonder iets te wijzigen. Niet in de zelfkassa en
+     niet op een website met een eigen thema (html.thema-site). -->
+<script>(function(){var d=document.documentElement,q=new URLSearchParams(location.search),u=q.get('uitstraling');
+if(q.has('zelfservice')||d.classList.contains('thema-site'))return;
+if(!/^(klassiek|d|e)$/.test(u||'')){try{u=localStorage.getItem('bb-uitstraling')}catch(e){u=null}}
+if(u==='d'||u==='e'){d.dataset.uitstraling=u;document.write('<link rel="stylesheet" href="bestellen-'+u+'.css" id="uitstraling-css">')}})();</script>
+<script src="bestellen.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#kaart">Direct naar de producten</a>
+<header class="top">
+  <a class="brand" href="/" aria-label="Boerderijrecreatie — naar de website">
+    <img src="beeld/logo.webp" alt="" width="52" height="52">
+    <span><b>Boerderijrecreatie</b><small>Zelfscan · boerderijwinkel</small></span>
+  </a>
+  <button class="basket-button" type="button" id="open-basket" aria-label="Je winkelmandje bekijken" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+    <span class="badge" id="basket-badge">0</span>
+  </button>
+</header>
+
+<p class="notice-strip" role="note">Proefversie · het aanbod is echt, betalen is nog een test (er gaat geen echt geld om)</p>
+
+<main id="kaart" tabindex="-1">
+  <section class="intro">
+    <!-- Winkelgerichte teksten (wens eigenaar 12 november 2026). -->
+    <p class="micro">Boerderijwinkel</p>
+    <h1>Zelfscan</h1>
+    <p>Pak je boodschappen, tik op het product of fotografeer het etiket, en reken zelf af met je telefoon.</p>
+  </section>
+
+  <div class="group-banner" id="group-banner" role="status" hidden></div>
+  <div class="routes" id="routes" role="tablist" aria-label="Wat wil je afrekenen?" hidden></div>
+  <p class="route-hint" id="route-hint"></p>
+  <nav class="sections" id="sections" aria-label="Onderdelen van de winkel" hidden></nav>
+
+  <div id="menu" aria-live="polite" aria-busy="true">
+    <div class="skeleton" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="visually-hidden">De producten worden geladen…</p>
+  </div>
+
+  <aside class="yte-note">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>
+    <p><b>Staat er geen prijs op?</b> Fotografeer het etiket, dan lezen wij de prijs. Vragen over een product of de herkomst? Vraag het gerust in de winkel of op het erf.</p>
+  </aside>
+
+  <footer class="foot">
+    <p>Boerderijrecreatie · Rotstergaast</p>
+    <a href="/">← Terug naar de website</a>
+  </footer>
+</main>
+
+<div class="basket-bar" id="basket-bar" hidden>
+  <button type="button" id="basket-bar-button"><span id="basket-bar-label">Je winkelmandje</span><b id="basket-bar-total"></b></button>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet-head">
+    <span class="sheet-grip" aria-hidden="true"></span>
+    <h2 id="sheet-title"></h2>
+    <button type="button" class="close" id="sheet-close" aria-label="Sluiten">×</button>
+  </div>
+  <div class="sheet-body" id="sheet-body"></div>
+  <div class="sheet-foot" id="sheet-foot"></div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

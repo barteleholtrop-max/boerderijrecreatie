@@ -1,0 +1,15 @@
+export type OptionGroup={id:string;title:string;required:boolean;choices:{id:string;label:string;extraCents:number}[]};
+export type BaseProduct={name:string;department:string;priceCents:number;note:string;vat:string;station:string;available:boolean;photo:string;allergens:string[];allergensChecked:boolean;orderOptions:string;optionGroups:OptionGroup[]};
+export type RemoteProduct=BaseProduct & {sourceId:string;revision:string;sourceCheck?:string};
+export const baseFields=['name','department','priceCents','note','vat','station','available','photo','allergens','allergensChecked','orderOptions','optionGroups'] as const;
+export function base(p:Record<string,unknown>):BaseProduct{const defaults={vat:'',station:'',available:true,photo:'',allergens:[],allergensChecked:false,orderOptions:'',optionGroups:[]};const v:Record<string,unknown>={...defaults,...p};return Object.fromEntries(baseFields.map(k=>[k,v[k]])) as BaseProduct;}
+export function same(a:BaseProduct,b:BaseProduct){return baseFields.every(k=>JSON.stringify(a[k])===JSON.stringify(b[k]));}
+export const allergenNames=['Gluten','Schaaldieren','Eieren','Vis','Pinda’s','Soja','Melk','Noten','Selderij','Mosterd','Sesam','Sulfiet','Lupine','Weekdieren'];
+export function validRemote(p:RemoteProduct){return !!p&&typeof p.sourceId==='string'&&p.sourceId.length>0&&p.sourceId.length<2000&&typeof p.revision==='string'&&/^[a-f0-9]{64}$/.test(p.revision)&&typeof p.name==='string'&&p.name.trim().length>0&&p.name.length<=180&&typeof p.department==='string'&&p.department.length<=100&&Number.isInteger(p.priceCents)&&p.priceCents>=0&&p.priceCents<=10000000&&typeof p.note==='string'&&p.note.length<5000&&['','9','21'].includes(p.vat)&&['','kok','barista','winkel','geen'].includes(p.station)&&typeof p.available==='boolean'&&typeof p.allergensChecked==='boolean'&&typeof p.photo==='string'&&p.photo.length<2000&&(p.photo===''||/^https:\/\//i.test(p.photo)||/^\/api\/media\/[a-f0-9-]{36}$/.test(p.photo))&&typeof p.orderOptions==='string'&&p.orderOptions.length<=3000&&Array.isArray(p.allergens)&&p.allergens.length<=14&&p.allergens.every(a=>allergenNames.includes(a))&&Array.isArray(p.optionGroups)&&p.optionGroups.length<=20&&JSON.stringify(p.optionGroups).length<=45000&&p.optionGroups.every(g=>g&&typeof g.id==='string'&&g.id.length<=100&&typeof g.title==='string'&&g.title.trim().length>0&&g.title.length<=100&&typeof g.required==='boolean'&&Array.isArray(g.choices)&&g.choices.length>0&&g.choices.length<=30&&g.choices.every(c=>c&&typeof c.id==='string'&&c.id.length<=100&&typeof c.label==='string'&&c.label.trim().length>0&&c.label.length<=100&&Number.isInteger(c.extraCents)&&c.extraCents>=0&&c.extraCents<=1000000));}
+export function mergeState(local:BaseProduct,remote:BaseProduct,baseline?:BaseProduct){
+ if(same(local,remote))return 'equal';
+ // The backoffice is leading. 'incoming': only the spreadsheet changed; 'outgoing': only the backoffice changed (still to export).
+ if(baseline&&same(local,baseline))return 'incoming';
+ if(baseline&&same(remote,baseline))return 'outgoing';
+ return 'conflict';
+}

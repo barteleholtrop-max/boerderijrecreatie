@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Welkom</title>
+<meta name="description" content="Bestellen, zelf scannen en afrekenen.">
+<meta name="boerbart-backoffice" content="">
+<link rel="icon" href="beeld/logo.webp" type="image/webp">
+<style>
+:root{--groen:#2e5e3e;--inkt:#1d2a22;--zacht:#5b6a60;--grond:#f7f5ec;--kaart:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--grond);color:var(--inkt);line-height:1.5}
+main{max-width:640px;margin:0 auto;padding:48px 20px 64px}
+header{display:flex;align-items:center;gap:16px;margin-bottom:32px}
+header img{width:64px;height:64px}
+h1{font-size:2rem;margin:0}
+.knoppen{display:grid;gap:14px;margin:28px 0}
+.knop{display:block;padding:20px 22px;border-radius:16px;background:var(--kaart);color:var(--inkt);text-decoration:none;border:2px solid #d9dfd6}
+.knop strong{display:block;font-size:1.2rem}
+.knop span{color:var(--zacht)}
+.knop:focus-visible,.knop:hover{border-color:var(--groen)}
+#contact{color:var(--zacht)}
+#contact a{color:var(--groen)}
+</style>
+</head>
+<body>
+<main>
+  <header><img src="beeld/logo.webp" alt="" width="64" height="64"><h1>Welkom</h1></header>
+  <p>Bestel hier iets te eten of te drinken, of reken zelf af wat je uit de koeling of de winkel hebt gepakt.</p>
+  <nav class="knoppen" aria-label="Wat wil je doen?">
+    <a class="knop" href="bestellen.html"><strong>Bestellen</strong><span>Eten en drinken, online betalen</span></a>
+    <a class="knop" href="zelfscan.html"><strong>Zelf scannen en afrekenen</strong><span>Met je eigen telefoon</span></a>
+  </nav>
+  <p id="contact" hidden></p>
+</main>
+<script>
+// Contactgegevens komen uit de backoffice (Instellingen → Openingstijden & capaciteit, blok Contact): één bron, niets vast in deze pagina.
+(async () => {
+  const meta = document.querySelector('meta[name="boerbart-backoffice"]')?.content.trim();
+  const local = ['3002', '3003'].includes(location.port);
+  const base = (meta || (local ? `http://${location.hostname || 'localhost'}:3001` : location.origin)).replace(/\/$/, '');
+  try {
+    const r = await fetch(base + '/api/public/availability', {cache: 'no-store'});
+    if (!r.ok) return;
+    const c = (await r.json()).contact || {};
+    const el = document.getElementById('contact');
+    const parts = [];
+    if (c.street || c.city) parts.push([c.street, [c.postalCode, c.city].filter(Boolean).join(' ')].filter(Boolean).join(', '));
+    el.textContent = parts.join('');
+    if (c.phone) { const a = document.createElement('a'); a.href = 'tel:' + c.phone.replace(/[^\d+]/g, ''); a.textContent = c.phone; el.append(parts.length ? ' · ' : '', a); }
+    if (c.email) { const a = document.createElement('a'); a.href = 'mailto:' + c.email; a.textContent = c.email; el.append(el.textContent ? ' · ' : '', a); }
+    el.hidden = !el.textContent;
+  } catch { /* zonder backoffice gewoon zonder contactregel */ }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+'use client';
+import {useState} from 'react';
+import {money} from './ui';
+export type Choice={id:string,label:string,extraCents:number};
+export type OptionGroup={id:string,title:string,required:boolean,choices:Choice[]};
+/** Gedeelde keuzegroep uit de bibliotheek (lib/option-groups.ts): de groep en de producten die hem gebruiken. */
+export type SharedGroup={group:OptionGroup,usedBy:{id:string,name:string}[]};
+const isShared=(g:OptionGroup)=>g.id.startsWith('kg-');
+// Gedeelde keuzegroepen (wens eigenaar 5 november 2026): „Soort melk” één keer maken en bij cappuccino, latte enz. gebruiken.
+// Aanpassen geldt meteen bij alle producten met die groep (de backoffice werkt ze bij het opslaan allemaal bij).
+export function OptionEditor({groups,onChange,library=[],productId=''}:{groups:OptionGroup[],onChange:(groups:OptionGroup[])=>void,library?:SharedGroup[],productId?:string}){
+ const patch=(id:string,p:Partial<OptionGroup>)=>onChange(groups.map(g=>g.id===id?{...g,...p}:g));
+ const others=(id:string)=>(library.find(l=>l.group.id===id)?.usedBy||[]).filter(u=>u.id!==productId).map(u=>u.name);
+ const available=library.filter(l=>!groups.some(g=>g.id===l.group.id));
+ return <fieldset className="option-editor"><legend>Bestelopties</legend><p>Maak een keuzevraag met één of meer antwoorden. Per vraag kan de gast één antwoord kiezen. Een <b>keuzegroep</b> gebruik je bij meerdere producten, zoals „Soort melk” bij cappuccino en latte.</p>{groups.map((g,i)=>{const o=others(g.id);return <div className={'option-group'+(isShared(g)?' shared':'')} key={g.id}><div className="option-title"><b>{isShared(g)?'Keuzegroep':'Keuzevraag'} {i+1}</b><button type="button" className="text-button" onClick={()=>onChange(groups.filter(x=>x.id!==g.id))}>{isShared(g)?'Weghalen bij dit product':'Verwijder keuzevraag'}</button></div>
+  {isShared(g)?<p className="option-shared-note">🔗 Gedeelde keuzegroep{o.length?<> · ook bij {o.slice(0,4).join(', ')}{o.length>4?` en ${o.length-4} meer`:''}</>:''}. Wat je hier aanpast, geldt na opslaan bij al deze producten.</p>
+   :<button type="button" className="text-button option-share" onClick={()=>patch(g.id,{id:'kg-'+crypto.randomUUID()})}>🔗 Maak hier een keuzegroep van (ook voor andere producten)</button>}
+  <label>Vraag<input value={g.title} onChange={e=>patch(g.id,{title:e.target.value})} placeholder="Bijvoorbeeld: Soort melk" maxLength={100}/></label><label className="check"><input type="checkbox" checked={g.required} onChange={e=>patch(g.id,{required:e.target.checked})}/> Gast moet een antwoord kiezen</label><div className="option-labels"><span>Antwoord</span><span>Meerprijs (€)</span></div>{g.choices.map(c=><div className="option-line" key={c.id}><input aria-label="Antwoord" placeholder="Bijvoorbeeld: Haver" maxLength={100} value={c.label} onChange={e=>patch(g.id,{choices:g.choices.map(x=>x.id===c.id?{...x,label:e.target.value}:x)})}/><input aria-label="Meerprijs in euro" type="number" min="0" max="10000" step="0.01" value={c.extraCents/100} onChange={e=>patch(g.id,{choices:g.choices.map(x=>x.id===c.id?{...x,extraCents:Math.round(Number(e.target.value)*100)}:x)})}/><button type="button" aria-label="Antwoord verwijderen" className="remove-choice" onClick={()=>patch(g.id,{choices:g.choices.filter(x=>x.id!==c.id)})}>×</button></div>)}<button type="button" className="secondary" onClick={()=>patch(g.id,{choices:[...g.choices,{id:crypto.randomUUID(),label:'',extraCents:0}]})}>+ Antwoord toevoegen</button></div>})}
+  <div className="option-add"><button type="button" className="secondary" onClick={()=>onChange([...groups,{id:crypto.randomUUID(),title:'',required:false,choices:[{id:crypto.randomUUID(),label:'',extraCents:0}] }])}>+ Keuzevraag toevoegen</button>
+   {available.length>0&&<label className="option-pick">Of kies een bestaande keuzegroep<select value="" onChange={e=>{const l=library.find(x=>x.group.id===e.target.value);if(l)onChange([...groups,l.group])}}><option value="">Kies een keuzegroep…</option>{available.map(l=><option key={l.group.id} value={l.group.id}>{l.group.title} ({l.group.choices.map(c=>c.label).filter(Boolean).join(' / ')})</option>)}</select></label>}</div></fieldset>
+}
+export function GuestOptions({groups,price}:{groups:OptionGroup[],price:number}){
+ const [selected,setSelected]=useState<Record<string,string>>({});const extra=groups.reduce((n,g)=>n+(g.choices.find(c=>c.id===selected[g.id])?.extraCents||0),0);const missing=groups.some(g=>g.required&&!selected[g.id]);
+ return <div className="guest-options">{groups.map(g=><label key={g.id}>{g.title}{g.required?' *':''}<select value={selected[g.id]||''} onChange={e=>setSelected({...selected,[g.id]:e.target.value})}><option value="">{g.required?'Maak een keuze':'Geen keuze'}</option>{g.choices.map(c=><option key={c.id} value={c.id}>{c.label}{c.extraCents>0?' · + '+money(c.extraCents):''}</option>)}</select></label>)}<p>Voorbeeldprijs: <b>{money(price+extra)}</b></p>{missing&&<p>Kies een antwoord bij de verplichte vragen.</p>}<small>Voorbeeld: er wordt geen bestelling geplaatst.</small></div>;
+}

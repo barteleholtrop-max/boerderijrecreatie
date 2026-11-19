@@ -1,0 +1,30 @@
+name: Controle
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm run install:apps
+      - run: npm audit --prefix apps/backoffice --omit=dev --audit-level=high
+      - run: npm test
+      - run: npm run build
+      # Klantgesprekken: Gmail-koppeling tegen een gesimuleerde Gmail (geen echte mail, geen Google-account).
+      - run: npm run test:gmail
+      - run: npm run test:betalen
+      - run: npm run test:push
+      - run: npm run test:drive
+      - run: npm run test:groepsaanvraag
+      - run: npm run test:inloggen
+      - run: npm ci --prefix tests/browser
+      # Systeempakketten (lettertypen) via apt; lukt dat niet door een storing bij Ubuntu (11 november 2026), dan alleen de
+      # browser zelf: de runner heeft de rest al. De browsertests draaien daarna gewoon.
+      - run: npx playwright install --with-deps chromium || npx playwright install chromium
+        working-directory: tests/browser
+      - run: npm run test:website:browser
+      - run: npm run typecheck

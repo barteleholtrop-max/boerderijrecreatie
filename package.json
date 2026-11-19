@@ -1,0 +1,28 @@
+{
+  "name": "boerderijrecreatie",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "setup": "node tools/setup.mjs",
+    "install:apps": "node tools/manage.mjs install",
+    "build": "node tools/manage.mjs build",
+    "start": "node tools/manage.mjs start",
+    "typecheck": "node tools/manage.mjs typecheck",
+    "test": "node tools/manage.mjs test && npm run test:website && npm run test:development",
+    "test:website": "node --test tests/website-dev.test.mjs tests/collection.test.mjs tests/seo.test.mjs",
+    "test:website:browser": "node --test tests/*.browser.mjs",
+    "dev:website": "node tools/serve-website.mjs",
+    "dev:website:codespaces": "node tools/start-website-codespaces.mjs",
+    "test:development": "node --test tests/development.test.mjs tests/version.test.mjs tests/risk.test.mjs",
+    "test:gmail": "node --test --test-force-exit --test-timeout=600000 tests/gmail.integration.mjs tests/offerte.integration.mjs",
+    "test:betalen": "node --test tests/betalen.integration.mjs",
+    "test:push": "node --test tests/push.integration.mjs",
+    "test:drive": "node --test tests/drive.integration.mjs",
+    "test:groepsaanvraag": "node --test tests/groepsaanvraag.integration.mjs",
+    "test:inloggen": "node --test tests/inloggen.integration.mjs"
+  }
+}

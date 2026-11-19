@@ -1,0 +1,52 @@
+import type {IngredientKind} from './warehouse-core';
+export const ALLERGENS=['Gluten','Schaaldieren','Eieren','Vis','Pinda’s','Soja','Melk','Noten','Selderij','Mosterd','Sesam','Sulfiet','Lupine','Weekdieren'];
+export type Unit='kg'|'l'|'st';
+export type Ingredient={id:string;name:string;unit:Unit;supplier:string;article:string;stock:number;known:boolean;countedAt:string;pack:number;min:number;leadDays:number;shelfDays:number;allergens:string[];checked:boolean;notes:string;origin:Origin;ownCents:number|null;kind?:IngredientKind};
+// kind: leeg of 'keuken' = gewone voorraad; 'magazijn' = eigen gebruik, nooit verkocht (lib/warehouse-core.ts).
+// Where an ingredient comes from. 'eigen' = van eigen boerderij (for example our own milk): never linked to a
+// wholesale invoice line, its price is the own cost price. 'inkoop' = bought in: the invoice price always goes first,
+// ownCents is only a temporary estimate until an invoice line is linked.
+export type Origin='inkoop'|'eigen';
+export const ORIGINS:Origin[]=['inkoop','eigen'];
+export type PriceSource='factuur'|'eigen'|'schatting';
+// packCount × packSize is an optional conversion (for example 2 boxes × 6 l); quantity always stays the total in the base unit.
+export type PurchaseLine={id:string;article:string;description:string;quantity:number;unit:Unit;netCents:number;ingredientId:string;kind:'product'|'deposit'|'other';received:boolean;orderId?:string;packCount?:number;packSize?:number};
+export type Invoice={id:string;supplier:string;number:string;date:string;source:string;lines:PurchaseLine[];reviewed:boolean};
+export type RecipeLine={ingredientId:string;quantity:number};
+export type Recipe={productId:string;name:string;yield:number;lines:RecipeLine[];method:string;lossPct:number;packagingCents:number;version:number;reviewed:boolean};
+export type StockMove={id:string;ingredientId:string;quantity:number;date:string;reason:string;reference:string};
+export type Incoming={id:string;ingredientId:string;quantity:number;remaining:number;due:string;status:'confirmed'|'received'|'geannuleerd';supplier:string};
+export type Ops={ingredients:Ingredient[];invoices:Invoice[];recipes:Recipe[];moves:StockMove[];incoming:Incoming[];requests:string[];recipeHistory:{recipe:Recipe;date:string;portionCents:number|null}[]};
+export function emptyOps():Ops{return {ingredients:[],invoices:[],recipes:[],moves:[],incoming:[],requests:[],recipeHistory:[]};}
+export function finite(v:unknown,min=0,max=1000000):v is number{return typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;}
+export function text(v:unknown,max=200):v is string{return typeof v==='string'&&v.length<=max;}
+export function day(v:unknown):v is string{return typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&Number.isFinite(Date.parse(v+'T00:00:00Z'))&&new Date(v+'T00:00:00Z').toISOString().slice(0,10)===v;}
+export function validIngredient(v:Ingredient){return v&&text(v.id,100)&&!!v.id&&text(v.name)&&!!v.name.trim()&&['kg','l','st'].includes(v.unit)&&text(v.supplier)&&text(v.article)&&finite(v.pack,0.001)&&finite(v.min)&&finite(v.leadDays,0,365)&&finite(v.shelfDays,0,3650)&&typeof v.checked==='boolean'&&Array.isArray(v.allergens)&&v.allergens.length<=14&&v.allergens.every(a=>ALLERGENS.includes(a))&&text(v.notes,2000)&&ORIGINS.includes(v.origin)&&(v.kind===undefined||v.kind==='keuken'||v.kind==='magazijn')&&(v.ownCents===null||finite(v.ownCents,0,10000000));}
+export function validInvoice(v:Invoice){return v&&text(v.id,100)&&!!v.id&&text(v.supplier)&&!!v.supplier.trim()&&text(v.number)&&!!v.number.trim()&&day(v.date)&&text(v.source,1000)&&Array.isArray(v.lines)&&v.lines.length>0&&v.lines.length<=300&&new Set(v.lines.map(l=>l.id)).size===v.lines.length&&v.lines.every(l=>l&&text(l.id,100)&&!!l.id&&text(l.article)&&text(l.description,500)&&finite(l.quantity,0.000001)&&['kg','l','st'].includes(l.unit)&&Number.isSafeInteger(l.netCents)&&l.netCents>=0&&l.netCents<=100000000&&text(l.ingredientId,100)&&['product','deposit','other'].includes(l.kind)&&validPacking(l));}
+function validPacking(l:PurchaseLine){if(l.packCount===undefined&&l.packSize===undefined)return true;return finite(l.packCount,0.000001)&&finite(l.packSize,0.000001)&&Math.abs(l.packCount*l.packSize-l.quantity)<=0.000001*Math.max(1,l.quantity);}
+export function validRecipe(r:Recipe,ops:Ops){return r&&text(r.productId,100)&&text(r.name)&&!!r.name.trim()&&finite(r.yield,0.001,10000)&&finite(r.lossPct,0,90)&&Number.isSafeInteger(r.packagingCents)&&r.packagingCents>=0&&r.packagingCents<=100000&&text(r.method,10000)&&typeof r.reviewed==='boolean'&&Array.isArray(r.lines)&&r.lines.length>0&&r.lines.length<=100&&new Set(r.lines.map(l=>l.ingredientId)).size===r.lines.length&&r.lines.every(l=>ops.ingredients.some(i=>i.id===l.ingredientId)&&finite(l.quantity,0.000001));}
+// Snelheid (4 november 2026): wie voor veel ingrediënten of recepten tegelijk rekent, maakt één keer een index van alle
+// beoordeelde factuurregels per ingrediënt. Zonder index werkt alles zoals voorheen (zelfde uitkomst).
+type PriceRow={date:string;supplier:string;number:string;quantity:number;netCents:number};
+export type PriceIndex={prices:Map<string,PriceRow[]>;ingredients:Map<string,Ingredient>};
+export function priceIndex(ops:Ops):PriceIndex{const prices=new Map<string,PriceRow[]>();for(const b of ops.invoices){if(!b.reviewed)continue;for(const l of b.lines){if(l.kind!=='product')continue;const list=prices.get(l.ingredientId)??prices.set(l.ingredientId,[]).get(l.ingredientId)!;list.push({date:b.date,supplier:b.supplier,number:b.number,quantity:l.quantity,netCents:l.netCents})}}for(const list of prices.values())list.sort((a,b)=>b.date.localeCompare(a.date));return {prices,ingredients:new Map(ops.ingredients.map(i=>[i.id,i]))};}
+export function priceInfo(ops:Ops,id:string,now:string,index?:PriceIndex){const since=Date.parse(now+'T00:00:00Z')-90*86400000;const prices=index?(index.prices.get(id)||[]).filter(p=>p.date<=now):ops.invoices.filter(b=>b.reviewed&&b.date<=now).flatMap(b=>b.lines.filter(l=>l.kind==='product'&&l.ingredientId===id).map(l=>({date:b.date,supplier:b.supplier,number:b.number,quantity:l.quantity,netCents:l.netCents}))).sort((a,b)=>b.date.localeCompare(a.date));const latest=prices[0];const recent=prices.filter(p=>Date.parse(p.date+'T00:00:00Z')>=since);const qty=recent.reduce((s,p)=>s+p.quantity,0);
+ // Price used for costing: own farm → own cost price; bought in → latest invoice first, otherwise the estimate.
+ const i=index?index.ingredients.get(id):ops.ingredients.find(x=>x.id===id),own=i&&i.ownCents!==null&&Number.isFinite(i.ownCents)?i.ownCents:null;
+ let unitCents:number|null=null,source:PriceSource|null=null;
+ if(i?.origin==='eigen'){if(own!==null){unitCents=own;source='eigen'}}
+ else if(latest){unitCents=latest.netCents/latest.quantity;source='factuur'}
+ else if(own!==null){unitCents=own;source='schatting'}
+ return {latest:latest?{...latest,unitCents:latest.netCents/latest.quantity}:null,average90:qty?recent.reduce((s,p)=>s+p.netCents,0)/qty:null,stale:source==='factuur'?Date.parse(latest!.date+'T00:00:00Z')<since:source===null,unitCents,source};}
+export function recipeCost(ops:Ops,r:Recipe,now:string,index?:PriceIndex){let cents=0;const missing:string[]=[];const stale:string[]=[];const estimated:string[]=[];const own:string[]=[];const allergens=new Set<string>();let allergensChecked=true;if(!r.lines.length){missing.push('Voeg ingrediënten toe');allergensChecked=false;}
+ for(const l of r.lines){const i=index?index.ingredients.get(l.ingredientId):ops.ingredients.find(x=>x.id===l.ingredientId);if(!i){missing.push(l.ingredientId||'Ingrediënt nog kiezen');allergensChecked=false;continue;}const p=priceInfo(ops,i.id,now,index);if(p.unitCents===null)missing.push(i.name);else{cents+=l.quantity*p.unitCents;if(p.source==='factuur'&&p.stale)stale.push(i.name);if(p.source==='schatting')estimated.push(i.name);if(p.source==='eigen')own.push(i.name)}i.allergens.forEach(a=>allergens.add(a));if(!i.checked)allergensChecked=false;}
+ // Quantities are edible/net quantities; loss is applied once to purchased amount.
+ cents=cents/(1-r.lossPct/100)/r.yield+r.packagingCents;
+ return {portionCents:missing.length?null:Math.round(cents),missing,stale,estimated,own,allergens:[...allergens],allergensChecked:allergensChecked&&r.reviewed};}
+export type Demand={productId:string;portions:number};
+export function shoppingPlan(ops:Ops,demand:Demand[],due:string,now:string){const required=new Map<string,number>();const blockers:string[]=[];
+ for(const d of demand){const r=ops.recipes.find(r=>r.productId===d.productId);if(!r){blockers.push('Geen recept voor '+d.productId);continue;}if(!r.reviewed)blockers.push('Recept nog controleren: '+r.name);for(const l of r.lines)required.set(l.ingredientId,(required.get(l.ingredientId)||0)+l.quantity/r.yield*d.portions/(1-r.lossPct/100));}
+ const lines=[...required].map(([id,needed])=>{const i=ops.ingredients.find(i=>i.id===id)!;if(!i)throw Error('Ingrediënt ontbreekt.');const incoming=ops.incoming.filter(o=>o.ingredientId===id&&o.status==='confirmed'&&o.due<=due).reduce((s,o)=>s+o.remaining,0);const shortage=i.known?Math.max(0,needed+i.min-i.stock-incoming):null;const packs=shortage===null?null:Math.ceil(Math.max(0,shortage-1e-9)/i.pack);const qty=packs===null?null:packs*i.pack;const p=priceInfo(ops,id,now);const late=new Date(now+'T00:00:00Z').getTime()+i.leadDays*86400000>Date.parse(due+'T00:00:00Z');const shelfRisk=i.shelfDays>0&&qty!==null&&qty>needed+i.min;return {ingredient:i,needed,incoming,shortage,packs,quantity:qty,estimatedCents:qty===null||p.unitCents===null?null:Math.round(qty*p.unitCents),stale:p.stale,late,shelfRisk};});
+ return {lines,blockers,totalCents:blockers.length>0||lines.some(l=>l.estimatedCents===null)?null:lines.reduce((s,l)=>s+(l.estimatedCents||0),0)};
+}
+export function applyMovement(ops:Ops,id:string,quantity:number,date:string,reason:string,reference:string,moveId:string){const i=ops.ingredients.find(i=>i.id===id);if(!i)throw Error('Ingrediënt niet gevonden.');if(!finite(quantity,-1000000)||quantity===0||!day(date))throw Error('Ongeldige hoeveelheid of datum.');if(!i.known)throw Error('Leg eerst de beginvoorraad vast.');if(date<i.countedAt)throw Error('Deze beweging ligt vóór de laatste telling en mag niet opnieuw worden verwerkt.');if(i.stock+quantity < -0.000001)throw Error('Onvoldoende geregistreerde voorraad. Controleer de telling.');i.stock=Math.round((i.stock+quantity)*1e6)/1e6;ops.moves.push({id:moveId,ingredientId:id,quantity,date,reason,reference});}

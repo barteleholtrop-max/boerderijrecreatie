@@ -1,0 +1,23 @@
+{
+  "scope": "/werkplek/",
+  "name": "Boerderijrecreatie · Werkplek",
+  "short_name": "Werkplek",
+  "lang": "nl",
+  "display": "standalone",
+  "background_color": "#f7f5ec",
+  "theme_color": "#7a5c1e",
+  "icons": [
+    {
+      "src": "/icons/werkplek-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/werkplek-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

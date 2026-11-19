@@ -1,0 +1,59 @@
+# Websites op Cloud Run. Gewone bestanden uit /usr/share/nginx/html; de openbare deur van de backoffice (/api/public/…)
+# en de huisstijl (brand.css) gaan achter de schermen naar BACKOFFICE_ORIGIN. De rest van de backoffice blijft achter de login.
+# Proefadressen (*.run.app) niet in Google; het eigen domein wel.
+map $host $robots_tag {
+  ~*\.run\.app$ "noindex, nofollow";
+  default "all";
+}
+# Beveiligingskoppen: op de bestelpagina reist het adres (met ?rekening=, ?deel=, ?bestelling=) niet mee als Referer;
+# HTML wordt niet bewaard.
+map $uri $referrer_beleid {
+  ~^/(bestellen\.html|bestellen/) no-referrer;
+  default strict-origin-when-cross-origin;
+}
+map $uri $cache_beleid {
+  ~\.html$ no-cache;
+  ~/$ no-cache;
+  default "";
+}
+server {
+  listen ${PORT};
+  server_name _;
+  root /usr/share/nginx/html;
+  absolute_redirect off;
+  server_tokens off;
+  add_header X-Robots-Tag $robots_tag always;
+  add_header X-Content-Type-Options nosniff always;
+  # Geen frames van andere sites (klikkapen), camera alleen voor de eigen pagina (QR-code en etiket bij bestellen).
+  add_header X-Frame-Options DENY always;
+  add_header Content-Security-Policy "frame-ancestors 'none'; base-uri 'self'; object-src 'none'" always;
+  add_header Permissions-Policy "camera=(self), microphone=(), geolocation=(), payment=()" always;
+  add_header Referrer-Policy $referrer_beleid always;
+  add_header Cache-Control $cache_beleid always;
+
+  location = /healthz { access_log off; return 200 "ok\n"; }
+
+  location ~ ^/(api/public/|brand\.css$) {
+    proxy_pass ${BACKOFFICE_ORIGIN};
+    proxy_ssl_server_name on;
+    proxy_set_header Host ${BACKOFFICE_HOST};
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header Cookie "";
+    proxy_hide_header Set-Cookie;
+    proxy_read_timeout 60s;
+  }
+
+  # Eigen adressen voor losse apps: zelfscan.<domein> opent meteen de zelfscan, zelfkassa.<domein> de tabletkassa.
+  # Andere adressen tonen de gewone voorpagina.
+  location = / {
+    if ($host ~* "^zelfscan(kassa)?\.") { return 302 /zelfscan.html; }
+    if ($host ~* "^zelfkassa\.") { return 302 /zelfkassa.html; }
+    try_files /index.html =404;
+  }
+
+  location / {
+    try_files $uri $uri.html $uri/ =404;
+  }
+  error_page 404 /404.html;
+}
