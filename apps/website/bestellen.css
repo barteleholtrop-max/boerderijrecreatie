@@ -1,0 +1,388 @@
+/* Bestelpagina Boerderijrecreatie — uitstraling 01 "Rust & ruimte": bosgroen, crème, natuurlijke zachtheid. */
+:root{
+  --bg:#f7f5ec;--surface:#eeeee1;--card:#fdfcf5;--ink:#294530;--muted:#6f7c63;--accent:#36563b;--accent-soft:#b8c69b;
+  --on:#fff;--line:#dfe2d1;--warm:#af8259;--danger:#9a4a32;
+  --serif:Georgia,'Times New Roman',serif;--sans:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --radius:18px;--shadow:0 10px 30px #2d3b2514;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);min-height:100dvh}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{cursor:default;opacity:.5}
+:focus-visible{outline:3px solid var(--warm);outline-offset:3px}
+a{color:var(--accent)}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--accent);color:var(--on);padding:10px 14px;border-radius:10px;z-index:30}
+.skip:focus{top:12px}
+
+/* Kop */
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px max(16px,env(safe-area-inset-left)) 12px max(16px,env(safe-area-inset-right));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand img{width:52px;height:52px;object-fit:contain}
+.brand b{display:block;font:24px/1 var(--serif);letter-spacing:-.5px;font-weight:normal}
+.brand small{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.basket-button{position:relative;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+.basket-button svg{width:22px;height:22px;fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.badge{position:absolute;top:-3px;right:-3px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--accent);color:var(--on);font-size:11px;line-height:20px;text-align:center}
+.notice-strip{margin:0;text-align:center;font-size:12px;padding:8px 16px;background:#e9ecdf;color:var(--accent)}
+
+main{max-width:760px;margin:0 auto;padding:0 16px calc(110px + env(safe-area-inset-bottom));outline:none}
+
+/* Intro */
+.intro{padding:30px 4px 18px}
+.micro{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin:0}
+.intro h1{font:44px/1.02 var(--serif);letter-spacing:-1.5px;font-weight:normal;margin:12px 0 12px}
+.intro h1 em{font-style:normal} /* cursief alleen in uitstraling E (bestellen-e.css) */
+.intro p:last-child{margin:0;color:var(--muted);font-size:16px}
+
+/* Route: eten & drinken of winkel */
+.routes{display:flex;gap:6px;padding:5px;background:var(--surface);border-radius:14px;margin:6px 0 10px}
+.routes button{flex:1;min-height:46px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+.routes button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 2px 8px #2d3b2512}
+.routes .count{font-size:11px;background:var(--accent);color:var(--on);border-radius:9px;padding:1px 7px}
+.route-hint{font-size:13px;color:var(--muted);margin:0 4px 14px;line-height:1.6}
+.route-hint:empty{display:none}
+
+/* Onderdelen */
+.sections{position:sticky;top:77px;z-index:5;display:flex;gap:8px;overflow-x:auto;padding:10px 0 12px;margin:0 -16px;padding-left:16px;padding-right:16px;background:linear-gradient(var(--bg) 80%,transparent);scrollbar-width:none}
+.sections::-webkit-scrollbar{display:none}
+.sections a{flex-shrink:0;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 16px;font-size:14px;min-height:40px;display:flex;align-items:center}
+.sections a[aria-current=true]{background:var(--accent);border-color:var(--accent);color:var(--on)}
+
+.group{scroll-margin-top:140px;margin:10px 0 26px}
+.group h2{font:28px/1.15 var(--serif);font-weight:normal;letter-spacing:-.5px;margin:6px 4px 14px}
+.list{display:grid;gap:12px}
+@media (min-width:700px){.list{grid-template-columns:1fr 1fr}.intro h1{font-size:60px}}
+
+/* Product */
+.product{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;min-width:0;grid-template-rows:1fr auto;align-items:center;column-gap:14px;width:100%;text-align:left;padding:12px;border-radius:var(--radius);border:1px solid var(--line);background:var(--card);transition:transform .15s ease,box-shadow .15s ease}
+.product:hover{box-shadow:var(--shadow)}
+.product:active{transform:scale(.99)}
+.product .art{width:92px;height:92px;border-radius:40px 40px 12px 12px;overflow:hidden;background:var(--surface);display:grid;place-items:center}
+.product .art img{width:100%;height:100%;object-fit:cover}
+.product .art span,.detail-art span{font:34px var(--serif);color:#8a9b6e}
+.product strong{display:block;font:19px/1.2 var(--serif);font-weight:normal;overflow-wrap:break-word}
+.product .meta{display:block;font-size:13px;color:var(--muted);margin-top:6px}
+.product .price{display:block;font-size:15px;margin-top:8px}
+.product .add{width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--on);display:grid;place-items:center;font-size:22px;line-height:1;flex-shrink:0}
+.product .add.has{background:var(--card);color:var(--accent);border:2px solid var(--accent);font-size:15px;font-weight:600}
+.product.off{opacity:.62}
+.product.off .add{background:transparent;color:var(--muted);border:1px dashed var(--muted);font-size:12px}
+
+/* Staten */
+.skeleton{display:grid;gap:12px;padding-top:8px}
+.skeleton i{display:block;height:116px;border-radius:var(--radius);background:linear-gradient(100deg,var(--surface) 30%,var(--card) 50%,var(--surface) 70%);background-size:300% 100%;animation:shine 1.4s infinite linear}
+@keyframes shine{to{background-position:-150% 0}}
+.state{text-align:center;padding:40px 22px;border-radius:24px;background:var(--surface);margin:10px 0 24px}
+.state h2{font:26px/1.2 var(--serif);font-weight:normal;margin:10px 0}
+.state p{color:var(--muted);margin:0 0 18px}
+.state svg{width:34px;height:34px;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.yte-note{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:var(--radius);border:1px solid var(--line);margin:8px 0 20px}
+.yte-note svg{width:24px;height:24px;flex-shrink:0;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-top:2px}
+.yte-note p{margin:0;font-size:14px;color:var(--muted)}
+.yte-note b{color:var(--ink);font-weight:600}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:var(--muted);padding:14px 4px;border-top:1px solid var(--line)}
+.foot p{margin:0}
+
+/* Knoppen */
+.primary,.secondary{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:54px;border-radius:27px;padding:0 24px;font-size:16px;border:0}
+.primary{background:var(--accent);color:var(--on)}
+.primary.center,.secondary.center{justify-content:center}
+.secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.text-button{border:0;background:none;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:6px 0;font-size:14px}
+
+/* Mandjesbalk */
+.basket-bar{position:fixed;left:0;right:0;bottom:0;z-index:15;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 35%)}
+.basket-bar button{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:728px;margin:0 auto;min-height:58px;border-radius:29px;border:0;padding:0 26px;background:var(--accent);color:var(--on);font-size:16px;box-shadow:0 10px 28px #36563b40;animation:rise .25s ease}
+@keyframes rise{from{transform:translateY(20px);opacity:0}}
+
+/* Paneel (sheet) */
+.scrim{position:fixed;inset:0;background:#1b261d66;z-index:20;animation:fade .2s ease}
+@keyframes fade{from{opacity:0}}
+.sheet{position:fixed;z-index:21;left:0;right:0;bottom:0;max-height:92dvh;display:flex;flex-direction:column;background:var(--bg);border-radius:28px 28px 0 0;box-shadow:0 -10px 40px #1b261d30;animation:up .25s cubic-bezier(.2,.8,.3,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+@media (min-width:700px){.sheet{left:50%;right:auto;bottom:auto;top:50%;transform:translate(-50%,-50%);width:600px;max-height:86dvh;border-radius:28px;animation:fade .2s ease}}
+.sheet-head{position:relative;padding:22px 64px 8px 22px}
+.sheet-grip{position:absolute;top:8px;left:50%;width:40px;height:4px;margin-left:-20px;border-radius:2px;background:var(--line)}
+@media (min-width:700px){.sheet-grip{display:none}}
+.sheet-head h2{font:28px/1.15 var(--serif);font-weight:normal;letter-spacing:-.5px;margin:6px 0 0}
+.close{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:24px;line-height:1;color:var(--ink)}
+.sheet-body{overflow-y:auto;padding:6px 22px 18px;overscroll-behavior:contain}
+.sheet-foot{padding:14px 22px calc(16px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:grid;gap:10px}
+.sheet-foot:empty{display:none}
+
+.detail-art{height:200px;border-radius:90px 90px 18px 18px;overflow:hidden;background:var(--surface);display:grid;place-items:center;margin:6px 0 16px}
+.detail-art img{width:100%;height:100%;object-fit:cover}
+.detail-art span{font-size:60px}
+.detail-price{font-size:18px;margin:0 0 6px}
+.dept{font-size:13px;color:var(--muted);margin:0 0 14px}
+
+fieldset{border:0;padding:0;margin:20px 0 0}
+legend{font:20px/1.3 var(--serif);padding:0;margin-bottom:4px;display:flex;align-items:baseline;gap:10px;width:100%}
+legend em{font:normal 12px var(--sans);color:var(--muted);margin-left:auto}
+legend em.need{color:var(--danger)}
+.choice{display:flex;align-items:center;gap:14px;min-height:54px;padding:10px 16px;margin-top:8px;border:1px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer}
+.choice input{accent-color:var(--accent);width:20px;height:20px;margin:0;flex-shrink:0}
+.choice span{flex:1}
+.choice small{color:var(--muted);font-size:14px}
+.choice:has(input:checked){border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+.allergens{margin:22px 0 0;padding:16px;border-radius:14px;background:var(--surface);font-size:14px}
+.allergens h3{font:17px var(--serif);margin:0 0 8px;font-weight:normal}
+.allergens p{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chips span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px}
+
+label.note{display:block;margin-top:22px;font:17px var(--serif)}
+textarea{display:block;width:100%;margin-top:8px;border:1px solid #cdd1c1;border-radius:14px;padding:12px 14px;background:var(--card);font:15px var(--sans);resize:vertical;min-height:70px}
+/* Etiketprijs (klant voert prijs in, wens eigenaar 5 november 2026) */
+label.label-price input{display:block;width:100%;max-width:220px;margin-top:8px;border:2px solid var(--accent);border-radius:14px;padding:12px 14px;background:var(--card);font:600 22px var(--sans);font-variant-numeric:tabular-nums}
+label.label-price small{display:block;margin-top:6px;font:14px var(--sans);color:var(--muted)}
+
+.qty-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px}
+.qty-row > span{font:17px var(--serif)}
+.stepper{display:flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;background:var(--card);padding:3px}
+.stepper button{width:42px;height:42px;border-radius:50%;border:0;background:transparent;font-size:20px;color:var(--accent)}
+.stepper button:not(:disabled):hover{background:var(--surface)}
+.stepper output{min-width:26px;text-align:center;font-size:16px}
+
+/* Mandje */
+.line{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.line strong{font:18px/1.25 var(--serif);font-weight:normal}
+.line .opts{font-size:13px;color:var(--muted);margin:3px 0 0}
+.line .line-price{text-align:right;font-size:15px}
+.line .stepper{grid-column:1;justify-self:start;margin-top:6px}
+.line .stepper button{width:38px;height:38px}
+.line .text-button{grid-column:2;justify-self:end;align-self:end}
+.totals{display:flex;justify-content:space-between;align-items:baseline;padding:18px 0 4px;font-size:15px}
+.totals b{font:26px var(--serif);font-weight:normal}
+.vat{font-size:12px;color:var(--muted);margin:0 0 6px}
+
+.empty{text-align:center;padding:30px 0 10px;color:var(--muted)}
+.empty svg{width:40px;height:40px;fill:none;stroke:var(--accent-soft);stroke-width:1.4}
+
+/* Afronden */
+.done{text-align:center;padding:10px 6px 0}
+.done .seal{width:84px;height:84px;margin:4px auto 16px;border-radius:50%;background:var(--surface);display:grid;place-items:center}
+.done .seal svg{width:38px;height:38px;fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.done h3{font:30px/1.15 var(--serif);font-weight:normal;margin:0 0 10px}
+.done p{color:var(--muted);margin:0 0 12px}
+.summary{text-align:left;margin:18px 0 6px;padding:16px 18px;border-radius:16px;background:var(--card);border:1px solid var(--line);font-size:15px}
+.summary div{display:flex;justify-content:space-between;gap:12px;padding:5px 0}
+.summary div:last-child{border-top:1px solid var(--line);margin-top:6px;padding-top:10px}
+.honest{margin:14px 0 0;padding:14px 16px;border-radius:14px;background:#efe6d6;color:#6a4c2f;font-size:14px;text-align:left}
+
+/* Melding */
+.toast{position:fixed;left:50%;top:calc(86px + env(safe-area-inset-top));transform:translate(-50%,-12px);z-index:25;background:var(--ink);color:var(--on);padding:12px 20px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+body.locked{overflow:hidden}
+.fine{font-size:13px;color:var(--muted);margin:14px 0 0}
+.order-number{font:52px/1 var(--serif)!important;letter-spacing:1px;margin:6px 0 12px!important}
+.done .micro{margin-top:4px}
+
+/* Groepscode en eigen bedrag */
+.group-banner{display:grid;gap:4px;padding:14px 16px;border-radius:var(--radius);background:var(--card);border:1px solid var(--accent-soft);margin:0 0 14px;font-size:14px}
+.group-banner b{font:19px/1.25 var(--serif);font-weight:normal;color:var(--ink)}
+.group-banner p{margin:0;color:var(--muted)}
+.group-banner.problem{border-color:var(--warm);background:#f6efe3}
+.group-banner .text-button{justify-self:start}
+.worth{text-align:left;margin:18px 0 0;padding:16px 18px;border-radius:16px;background:var(--surface)}
+.worth h4{font:22px/1.2 var(--serif);font-weight:normal;margin:0 0 4px}
+.worth p{margin:0 0 10px;font-size:14px;color:var(--muted)}
+.worth .normal{display:flex;justify-content:space-between;font-size:15px;color:var(--ink);margin:0 0 12px}
+.worth label{display:block;font-size:14px;color:var(--ink)}
+.worth .amount{display:flex;align-items:center;gap:8px;margin-top:6px;border:1px solid #cdd1c1;border-radius:14px;background:var(--card);padding:0 14px}
+.worth .amount span{font:20px var(--serif);color:var(--muted)}
+.worth input{flex:1;min-width:0;min-height:50px;border:0;background:transparent;font:20px var(--sans);color:var(--ink)}
+.worth input:focus{outline:none}
+.worth .amount-done{flex:none;min-height:38px;padding:0 14px;border:0;border-radius:10px;background:var(--ink);color:var(--card);font:600 15px var(--sans);cursor:pointer}
+.worth .amount:focus-within{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.worth .hint{margin:8px 0 0;font-size:13px}
+.worth .hint.warn{color:var(--danger)}
+
+/* Pushmelding "Je bestelling staat klaar" */
+.push{margin:16px 0 0}
+.push .secondary{width:100%}
+.push .push-on{margin:0;padding:12px 14px;border-radius:14px;background:var(--surface);color:var(--accent);font-size:14px;text-align:left}
+
+/* Productkaart met Personaliseren (3 november 2026): openen, personaliseren en snel toevoegen zijn aparte knoppen. */
+.product .product-open{grid-column:1;grid-row:1/3;display:grid;grid-template-columns:92px minmax(0,1fr);min-width:0;align-items:center;gap:14px;text-align:left;background:none;border:0;padding:0;color:inherit;font:inherit;cursor:pointer;width:100%}
+.product .add{grid-column:2;grid-row:1;border:0;cursor:pointer;font:inherit;font-size:22px}
+.product .personalize{grid-column:2;grid-row:2;align-self:end;justify-self:end;margin-top:8px;border:1px solid var(--line);background:none;color:var(--accent);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.product .personalize:hover,.product .personalize:focus-visible{background:var(--surface)}
+/* Smalle telefoons (bijvoorbeeld 320 px): de kaarten liepen rechts van het scherm af (ontwerpnotitie eigenaar, 9 november 2026). */
+@media (max-width:380px){.product{column-gap:10px;padding:10px}.product .product-open{grid-template-columns:64px minmax(0,1fr);gap:10px}.product .art{width:64px;height:64px;border-radius:28px 28px 10px 10px}.product .art span{font-size:26px}.product .personalize{padding:6px 8px}.product{grid-template-rows:auto auto}.product .product-open{grid-row:1}.product .add{grid-row:1}.product .personalize{grid-column:1/3;grid-row:2;margin-top:8px}}
+/* Btw is al inbegrepen; de uitsplitsing volgt het door de gast gekozen totaal. */
+.vat-summary{margin:12px 2px 18px;text-align:left;font-size:12px;color:var(--muted)}
+.vat-summary .vat-title{font-size:12px;margin:0 0 4px}
+.vat-summary .vat-row{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.worth-explanation{margin:14px 0 0;font-size:13px}
+.worth-explanation summary{color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;line-height:1.5;padding:8px 0}
+.worth-explanation p{font-size:13px;line-height:1.6;margin:8px 0}
+.worth-explanation summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+
+.worth-distribution{margin:8px 0 0;padding-left:20px;color:var(--muted);font-size:13px;line-height:1.6}
+.worth-distribution li{padding:3px 0}
+
+/* Afhalen in de winkel: nu meenemen of later ophalen (3 november 2026) */
+.pickup { margin: 16px 0; padding: 16px; border-radius: 18px; background: #f6f3ea; display: grid; gap: 10px; }
+/* Geef wat goed voelt in de betaalkeuze (wens eigenaar 13 november 2026: eerst het bedrag): binnen het raster niet breder dan het blok. */
+.pickup > * { min-width: 0; }
+.pickup .worth { margin: 0; padding: 14px; background: var(--card); }
+.pickup h4 { margin: 0; }
+.pickup-modes { display: grid; gap: 8px; }
+.pickup-choice { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #fff; border: 1px solid #e3dccb; cursor: pointer; }
+.pickup-choice.on { border-color: #355a3b; box-shadow: 0 0 0 2px rgba(53,90,59,.15); }
+.pickup-choice input { accent-color: #355a3b; width: 18px; height: 18px; }
+.pickup-grid { display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; align-items: center; }
+.pickup-grid select, .pickup-grid input { font: inherit; padding: 10px 12px; border-radius: 12px; border: 1px solid #d9d2c1; background: #fff; min-width: 0; }
+.pickup .hint { margin: 0; }
+.pickup .hint.warn { color: #a34a2a; }
+.pickup-note { font-weight: 600; }
+@media (max-width: 420px) { .pickup-grid { grid-template-columns: 1fr; } }
+
+/* Zelfservicekassa in de winkel (4 november 2026): geen links naar de rest van de site, grote knoppen, QR-code. */
+.zelfservice .brand{pointer-events:none}
+.zelfservice .notice-strip,.zelfservice .yte-note,.zelfservice .foot,.zelfservice .skip{display:none}
+.zelfservice .intro h1::after{content:" · Zelf afrekenen";font-size:.45em;display:block;margin-top:6px;color:var(--muted)}
+.primary.alt{background:var(--surface);color:var(--ink);border:2px solid var(--accent)}
+.kiosk-qr .qr{display:block;margin:12px auto;width:260px;height:260px;background:#fff;padding:10px;border-radius:16px;border:1px solid var(--line)}
+
+
+/* Gezamenlijke rekening (wens eigenaar 5 november 2026) */
+.pay .pickup-choice span b{font-weight:600}
+.pay .pickup-choice small{color:var(--muted);font-size:13px}
+.pay .secondary,.bill .secondary,.share-row .secondary{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:600;text-decoration:none;cursor:pointer}
+.guest .pickup-grid input{font:inherit;padding:10px 12px;border-radius:12px;border:1px solid #d9d2c1;background:#fff;min-width:0}
+.share-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0 16px}
+.done img.qr{display:block;margin:6px auto;width:200px;height:200px;background:#fff;padding:8px;border-radius:14px}
+.bill{text-align:left}
+.bill > h3,.bill > .micro,.bill > .order-number{text-align:center}
+.bill-bar{height:12px;border-radius:999px;background:var(--surface);overflow:hidden;margin:10px 0}
+.bill-bar span{display:block;height:100%;background:var(--accent);border-radius:999px}
+.bill-bar.near span{background:#c98a2b}
+.bill-bar.full span{background:#a34a2a}
+.paid-stamp{display:inline-block;margin:0 auto 10px;padding:6px 16px;border:2px solid var(--accent);border-radius:10px;color:var(--accent);font-weight:700;letter-spacing:2px;text-transform:uppercase;transform:rotate(-3deg)}
+.bill .paid-stamp{display:block;width:max-content}
+.share-card{border:1px solid var(--line);border-radius:16px;background:var(--card);padding:12px 14px;margin:8px 0;display:grid;gap:8px}
+.share-card.paid{opacity:.75}
+.share-head{display:flex;justify-content:space-between;gap:12px}
+.invoice{margin-top:22px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fff;font-size:14px}
+.invoice-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px;color:var(--muted)}
+.invoice-head b{color:var(--ink)}
+.invoice-person{border-top:1px solid var(--line);padding:8px 0}
+.invoice-line{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px}
+@media print{body>*:not(#sheet){display:none!important}#sheet{position:static!important;max-height:none!important;box-shadow:none!important}#sheet-foot,#sheet-close,.share-row,.bill .pickup,.bill img.qr,.share-card button{display:none!important}}
+.pay,.guest{text-align:left}
+.pay .pickup-choice span{display:block;text-align:left}
+.invoice-names{margin:8px 0 0;color:var(--muted);font-size:13px}
+/* Geef wat goed voelt (wens eigenaar 5 november 2026; eerst „Jou wat goed fielt”): zelf het bedrag intypen */
+.worth .worth-motto{margin:0;font-size:16px;color:var(--ink)}
+.worth .worth-farm{margin:0 0 12px;font-style:italic}
+/* Betalen met dividend (wens eigenaar 5 november 2026) */
+.dividend{display:grid;gap:8px;text-align:left;font-size:14px}
+.dividend p{margin:0}
+.dividend input{font:inherit;padding:10px 12px;border-radius:12px;border:1px solid #d9d2c1;background:#fff;min-width:0}
+/* QR-code van de rekeninghouder scannen (wens eigenaar 5 november 2026) */
+.scan-layer{position:fixed;inset:0;z-index:1000;background:rgba(20,28,22,.72);display:flex;align-items:center;justify-content:center;padding:16px}
+.scan-box{background:var(--bg,#f6f1e7);border-radius:22px;padding:20px;width:min(420px,100%);display:flex;flex-direction:column;gap:12px}
+.scan-box h4{margin:0}
+.scan-video{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;background:#000}
+
+/* Startschermvraag (wens eigenaar 8 november 2026) */
+.startscherm-vraag{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:10px 0 14px;padding:12px 14px;border-radius:16px;background:#fff;border:1px solid #e3ddcf;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.startscherm-vraag>div:first-child{display:flex;flex-direction:column;gap:4px;flex:1 1 220px;font-size:14px}
+.startscherm-vraag span{color:#5f6b61;font-size:13px}
+.startscherm-knoppen{display:flex;flex-wrap:wrap;gap:8px}
+.startscherm-ja{background:#36563b;color:#fff;border:0;border-radius:999px;padding:9px 16px;font-weight:700;cursor:pointer}
+.startscherm-nee{background:transparent;border:1px solid #cfc8b8;border-radius:999px;padding:9px 14px;cursor:pointer}
+
+/* Welk saldo eerst (wens eigenaar 8 november 2026) */
+.dividend .choice-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+.dividend .choice-row .hint{flex-basis:100%;margin:0}
+.dividend .chip{border:1px solid #cfc8b8;background:#fff;border-radius:999px;padding:8px 14px;font:inherit;cursor:pointer}
+.dividend .chip.on{background:#36563b;border-color:#36563b;color:#fff;font-weight:700}
+
+/* Onthoud mij als klant (klantenkaart, 8 november 2026) */
+.remember .checkline{display:flex;gap:10px;align-items:center;font-weight:600;cursor:pointer}
+.remember .checkline input{width:20px;height:20px;flex:none}
+.remember .fine{margin-top:6px}
+.remember .pickup-grid{margin-top:10px}
+/* Zelfservicekassa (wens eigenaar 9 november 2026): producten scannen en de betaalpagina op de eigen telefoon. */
+.pay-page .pay-lines{list-style:none;margin:6px 0 12px;padding:0;text-align:left;display:inline-block}
+.pay-page .pay-lines li{padding:2px 0}
+/* Etiket fotograferen (wens eigenaar 9 november 2026). */
+.intro .label-product{margin-top:10px;margin-left:8px;font-size:1.05rem;padding:14px 20px}
+.label-price .label-photo{margin-top:8px;width:100%}
+.label-read .fine{color:var(--muted)}
+/* Zelfkassa als kassa met druktoetsen (wens eigenaar 9 november 2026): links grote toetsen per groep, rechts een vaste bon met
+   Afrekenen, bovenaan Scan en Etiket. Tabletstand liggend, volledig scherm (zelfkassa-app.json). */
+.zelfservice main{max-width:none;margin:0;padding:0 20px 120px}
+.zelfservice .intro{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 0 6px}
+.zelfservice .intro .micro,.zelfservice .intro>p{display:none}
+.zelfservice .intro h1{font-size:30px;letter-spacing:-.5px;margin:0 auto 0 0}
+.zelfservice .intro h1::after{content:none}
+.zelfservice .intro .label-product{margin:0;font-size:1.05rem;padding:14px 20px}
+.zelfservice .route-hint,.zelfservice .basket-bar,.zelfservice #open-basket{display:none!important}
+.zelfservice .group h2{font-size:15px;margin:16px 0 8px;color:var(--muted);font-family:var(--sans);letter-spacing:.04em;text-transform:uppercase}
+.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.key{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:8px;text-align:left;min-height:100px;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer;box-shadow:0 2px 0 rgba(0,0,0,.06);touch-action:manipulation}
+.key:active{transform:translateY(1px);background:var(--accent-soft)}
+.key.has{border-color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+.key.off{opacity:.45;cursor:default}
+.key strong{font-size:17px;line-height:1.2;padding-right:28px}
+.key-price{font-weight:700;color:var(--accent)}
+.key-count{position:absolute;top:8px;right:8px;min-width:28px;height:28px;padding:0 6px;border-radius:14px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:14px}
+/* Bon als smalle balk onderin (10 november 2026); uitgeklapt komen de regels erboven. */
+.kassa-bon{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:10px 16px max(10px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;z-index:12;box-shadow:0 -6px 20px rgba(0,0,0,.08)}
+.bon-panel{display:flex;flex-direction:column;gap:8px;max-height:55vh;min-height:0}
+.bon-panel h2{margin:0;font:24px var(--serif)}
+.bon-bar{display:flex;align-items:center;gap:12px;max-width:1100px;width:100%;margin:0 auto}
+.bon-toggle{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:none;border:0;padding:6px 0;font:inherit;color:var(--ink);cursor:pointer;text-align:left}
+.bon-toggle span{font-size:18px;font-weight:700;white-space:nowrap}.bon-toggle small{color:var(--accent);font-size:14px;text-decoration:underline}
+.kassa-bon .bon-empty{padding:10px 0}
+.kassa-bon h2{margin:0;font:28px var(--serif)}
+.bon-empty{color:var(--muted);margin:0}
+.bon-lines{flex:1;overflow:auto;display:flex;flex-direction:column}
+.bon-line{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.bon-name strong{display:block;line-height:1.2}.bon-name small{display:block;color:var(--muted)}
+.bon-price{white-space:nowrap}
+.bon-remove{border:0;background:none;font-size:22px;line-height:1;cursor:pointer;color:var(--muted);padding:4px}
+
+.bon-bar .bon-pay{flex:0 1 360px;font-size:20px;padding:14px 22px;display:flex;justify-content:space-between;gap:18px}
+@media (max-width:520px){.bon-bar .bon-pay{flex:1 1 auto}}
+.scan-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.key-supplier{font-size:13px;color:var(--muted);margin-top:-4px}
+/* Foto op de druktoets van de zelfkassa (12 november 2026): vierkant-achtig vak bovenaan, de hele breedte van de toets. */
+.key-art{display:block;width:100%;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:var(--accent-soft)}.key-art img{display:block;width:100%;height:100%;object-fit:cover}
+.key.off .key-art img{filter:grayscale(1)}
+
+/* Meerdere etiketten achter elkaar (9 november 2026) */
+.label-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.label-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line)}
+.label-item div{display:flex;flex-direction:column;min-width:0}.label-item b{font-weight:600;overflow-wrap:break-word}.label-item small{color:var(--muted);font-size:13px}
+.label-item strong{font-size:17px;white-space:nowrap}.label-item.error{background:#f6efe3;border-color:#e3d3b8}
+.label-spinner{width:20px;height:20px;border:3px solid var(--accent-soft);border-top-color:var(--accent);border-radius:50%;animation:label-draai .8s linear infinite}
+@keyframes label-draai{to{transform:rotate(360deg)}}
+.label-batch .fine{text-align:left}
+.sheet-foot .label-more{width:100%;min-height:52px;margin-top:8px}
+/* Eigen camerascherm voor etiketten (wens eigenaar 10 november 2026): in beeld „Volgend etiket” en „Klaar”. Geen spiegelbeeld. */
+.label-cam{position:fixed;inset:0;z-index:1000;background:#000;color:#fff;display:flex;flex-direction:column}
+.label-cam .cam-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none}
+.label-cam .cam-flash{position:absolute;inset:0;background:#fff;opacity:.7;pointer-events:none}
+.label-cam .cam-top{position:relative;display:flex;align-items:flex-start;gap:12px;padding:max(16px,env(safe-area-inset-top)) 16px 24px;background:linear-gradient(rgba(0,0,0,.65),transparent)}
+.label-cam .cam-status{flex:1;margin:0;font-size:17px;line-height:1.35;font-weight:600}
+.label-cam .cam-close{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:26px;line-height:1}
+.label-cam .cam-bottom{position:relative;margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:28px 16px max(20px,env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.7))}
+.label-cam .cam-shot{flex:1;min-height:72px;border:0;border-radius:999px;background:#fff;color:#1f3a2c;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px}
+.label-cam .cam-shot:disabled{opacity:.45}
+.label-cam .cam-shot span{font-size:26px}
+.label-cam .cam-done{flex:none;min-width:120px;min-height:72px;border:2px solid #fff;border-radius:999px;background:transparent;color:#fff;font-size:19px;font-weight:700;padding:0 18px}
+.label-cam .cam-done.cam-done-now{background:#fff;color:#1f3a2c}
+html.cam-open,html.cam-open body{overflow:hidden}

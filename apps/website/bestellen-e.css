@@ -1,0 +1,82 @@
+/* Bestelapp — uitstraling „E · Lijst” (wens eigenaar 9 november 2026). Gekozen bij Website & uitstraling in de backoffice.
+   Alleen vormgeving: de werking (aanbod, mandje, afrekenen) blijft die van bestellen.js. Basis = bestellen.css (Klassiek);
+   alles hieronder geldt alleen met html[data-uitstraling="e"], dat bestellen.html en bestellen.js zetten.
+   Lettertypen staan op de eigen website (fonts/, SIL Open Font License), niet bij Google. */
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(fonts/instrument-serif-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken-grotesk-700.woff2) format("woff2");font-weight:700;font-display:swap}
+
+html[data-uitstraling="e"]{
+  /* Kleuren uit het ontwerp: lucht, wei, boom en een warm geel accent. */
+  --lucht:#CFE1E6;--wolk:#E6F0F2;--wei:#6F9668;--wei-donker:#5F8759;--boom:#2F5D52;--groen:#17423C;--geel:#F7C948;--wit:#FFFDF5;
+  --bg:#FCFCF9;--surface:#F4F8F6;--card:#FFFFFF;--ink:#12332F;--muted:#4A5F5B;--accent:#17423C;--accent-soft:#C9D6D3;
+  --on:#F4F8F6;--line:#C9D6D3;--warm:#F7C948;--danger:#9a4a32;
+  --serif:"Instrument Serif",Georgia,serif;--sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --radius:16px;--shadow:0 10px 28px #12332f14;
+  --tegel:18px;
+}
+html[data-uitstraling="e"] body{overflow-x:clip}
+html[data-uitstraling="e"] :focus-visible{outline-color:var(--geel)}
+
+/* Kop: lucht, logo en naam; het mandje-knopje blijft rechts. */
+html[data-uitstraling="e"] .top{background:var(--lucht);border-bottom:0;backdrop-filter:none}
+html[data-uitstraling="e"] .brand img{width:44px;height:44px}
+html[data-uitstraling="e"] .brand b{font:24px/1 var(--serif);letter-spacing:0}
+html[data-uitstraling="e"] .brand small{font-size:13px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--ink);margin-top:4px}
+html[data-uitstraling="e"] .basket-button{background:var(--wit);border-color:transparent}
+html[data-uitstraling="e"] .notice-strip{background:var(--groen);color:var(--on);font-size:13px}
+
+/* Welkom: lucht met wolken, bomen, boerderij en wei als strook; daaronder begint het papier met een ronde rand. */
+html[data-uitstraling="e"] .intro{position:relative;margin:0 calc(50% - 50vw);padding:18px max(20px,calc(50vw - 360px)) 118px;
+  background:var(--lucht) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 390 130'%3E%3Cg fill='%23E6F0F2'%3E%3Cellipse cx='318' cy='22' rx='60' ry='11'/%3E%3Cellipse cx='288' cy='13' rx='34' ry='11'/%3E%3Cellipse cx='70' cy='40' rx='50' ry='9'/%3E%3C/g%3E%3Cg fill='%232F5D52'%3E%3Ccircle cx='34' cy='74' r='16'/%3E%3Ccircle cx='56' cy='68' r='21'/%3E%3Ccircle cx='80' cy='76' r='14'/%3E%3C/g%3E%3Cpolygon fill='%2317423C' points='236,90 236,70 260,50 284,70 284,90'/%3E%3Crect fill='%2317423C' x='284' y='72' width='26' height='18'/%3E%3Crect fill='%236F9668' x='-200' y='88' width='790' height='42'/%3E%3Cpath fill='%23CFE1E6' d='M262 88h7l-40 42h-36z'/%3E%3Crect fill='%235F8759' x='-200' y='88' width='790' height='3'/%3E%3C/svg%3E") center bottom/max(100%,560px) auto no-repeat}
+html[data-uitstraling="e"] .intro::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:26px;background:var(--bg);border-radius:26px 26px 0 0}
+html[data-uitstraling="e"] .intro .micro{font-size:15px;letter-spacing:0;text-transform:none;font-weight:600;color:var(--ink)}
+html[data-uitstraling="e"] .intro h1{font:clamp(48px,14vw,68px)/.95 var(--serif);letter-spacing:-.01em;margin:4px 0 10px}
+html[data-uitstraling="e"] .intro h1 em{font-style:italic}
+html[data-uitstraling="e"] .intro p:last-of-type{color:var(--ink);font-weight:500}
+
+/* Eten & drinken / Uit de winkel: een schakelaar. */
+html[data-uitstraling="e"] .routes{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px}
+html[data-uitstraling="e"] .routes button{border-radius:999px;font-weight:600;color:var(--muted)}
+html[data-uitstraling="e"] .routes button[aria-selected=true]{background:var(--groen);color:var(--on);box-shadow:none}
+html[data-uitstraling="e"] .routes .count{background:var(--geel);color:var(--ink)}
+html[data-uitstraling="e"] .route-hint{background:var(--surface);border-radius:14px;padding:12px 14px;margin:0 0 14px;font-size:14px;line-height:1.45}
+html[data-uitstraling="e"] .sections{background:linear-gradient(var(--bg) 80%,transparent)}
+html[data-uitstraling="e"] .sections a{border-color:var(--line);background:transparent;font-weight:600}
+html[data-uitstraling="e"] .sections a[aria-current=true]{background:var(--groen);border-color:var(--groen)}
+
+/* Onderdelen en producten als lijst: tegel links, tekst in het midden, knop rechts. Nooit breder dan het scherm. */
+html[data-uitstraling="e"] .group h2{font:32px/1.15 var(--serif);letter-spacing:0;margin:6px 0 4px}
+html[data-uitstraling="e"] .list{gap:0}
+html[data-uitstraling="e"] .product{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:1fr auto;column-gap:12px;padding:12px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent}
+html[data-uitstraling="e"] .product:last-child{border-bottom:0}
+html[data-uitstraling="e"] .product:hover{box-shadow:none}
+html[data-uitstraling="e"] .product .product-open{grid-template-columns:88px minmax(0,1fr);gap:14px;min-width:0;padding-bottom:28px}
+html[data-uitstraling="e"] .product:not(:has(.personalize)) .product-open{padding-bottom:0}
+html[data-uitstraling="e"] .product .art{width:88px;height:88px;border-radius:var(--tegel);background:var(--lucht);position:relative}
+html[data-uitstraling="e"] .list .product:nth-child(3n+2) .art{background:var(--wei)}
+html[data-uitstraling="e"] .list .product:nth-child(3n) .art{background:var(--wolk)}
+/* Geen beginletter meer: zonder foto een eenvoudig blad op het gekleurde vlak. */
+html[data-uitstraling="e"] .product .art span,html[data-uitstraling="e"] .detail-art span{font-size:0;width:44%;height:44%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 36V18' stroke='%2312332F' stroke-width='2.5' stroke-linecap='round' fill='none'/%3E%3Cpath d='M20 22C20 12 27 6 36 5c0 10-6 17-16 17z' fill='%23FFFDF5'/%3E%3Cpath d='M20 26C19 18 13 13 5 13c0 8 6 13 15 13z' fill='%23F7C948'/%3E%3C/svg%3E") center/contain no-repeat}
+html[data-uitstraling="e"] .product strong{font:23px/1.15 var(--serif);overflow-wrap:break-word}
+html[data-uitstraling="e"] .product .meta{font-size:13px;margin-top:2px}
+html[data-uitstraling="e"] .product .price{font-size:16px;font-weight:600;margin-top:2px}
+html[data-uitstraling="e"] .product .personalize{grid-column:1;grid-row:2;justify-self:start;align-self:end;margin:-24px 0 0 102px;border:0;padding:2px 0;border-radius:0;background:none;color:var(--boom);font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px;position:relative;z-index:1}
+html[data-uitstraling="e"] .product .personalize:hover,html[data-uitstraling="e"] .product .personalize:focus-visible{background:none;color:var(--ink)}
+html[data-uitstraling="e"] .product .add{grid-row:1/3;align-self:center;width:48px;height:48px;background:var(--groen);color:var(--on)}
+html[data-uitstraling="e"] .product .add.has{background:var(--geel);color:var(--ink);border:0;font-size:17px;font-weight:700}
+html[data-uitstraling="e"] .product:has(.add.has) .art{box-shadow:inset 0 0 0 3px var(--geel)}
+
+/* Productdetail */
+html[data-uitstraling="e"] .detail-art{border-radius:22px;background:var(--lucht)}
+html[data-uitstraling="e"] .sheet h2,html[data-uitstraling="e"] .sheet h3{font-family:var(--serif);font-weight:400}
+
+/* Mandje als balk onderaan, met het bedrag in geel. */
+html[data-uitstraling="e"] .basket-bar button{border-radius:16px;min-height:64px;padding:0 10px 0 20px;background:var(--groen);color:var(--on);font-weight:600;box-shadow:0 10px 28px #12332f40}
+html[data-uitstraling="e"] #basket-bar-total{background:var(--geel);color:var(--ink);border-radius:12px;padding:10px 14px;font-weight:700}
+
+html[data-uitstraling="e"] .yte-note{background:var(--surface);border:0}
+html[data-uitstraling="e"] .yte-note svg{stroke:var(--boom)}

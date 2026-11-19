@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.env
+.env.*
+!.env.example
+var/
+*.log
+*.tsbuildinfo
+.DS_Store
+
+# Lokale toegangsinstellingen
+/data/access-settings-reference.json
+
+# Door Next.js bij elke start opnieuw geschreven (dev en build verschillen); niet in Git, anders blokkeert het bijwerken.
+next-env.d.ts
+# Door next dev gegenereerde agentinstructies
+apps/*/AGENTS.md
